@@ -1,16 +1,25 @@
-#[allow(dead_code)]
-pub struct Node<K, V> {
-    key: K,
-    val: V,
-    next: Option<Box<Node<K, V>>>,
-}
+use super::node::Node;
 
-impl<K, V> Node<K, V> {
-    fn new(key: K, val: V) -> Node<K, V> {
-        Node{key: key, val: val, next:None}
+pub trait ST {
+    fn get(&self, key: String) -> Option<i32> {
+        None
     }
+    fn put(&mut self, key:String, val:i32) {}
+
 }
 
-pub struct SequentialSearchST<K, V> {
-    first: Node<K, V>,
+#[derive(PartialEq)]
+pub struct SequentialSearchST
+{
+    first: Node,
+    size: i32,
+}
+
+impl ST for SequentialSearchST {
+    fn get(&self, key: String) -> Option<i32> {
+        None
+    }
+    fn put(&mut self, key:String, val:i32) {
+        let mut x = &self.first;
+    }
 }

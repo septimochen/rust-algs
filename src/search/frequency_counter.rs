@@ -3,7 +3,7 @@ use std::fs::File;
 // use std::io::prelude::*;
 use std::io::{self, BufRead};
 use std::path::Path;
-use std::{cell::RefCell};
+// use std::{cell::RefCell};
 
 fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
 where
@@ -14,12 +14,13 @@ where
 }
 
 #[allow(dead_code)]
+#[allow(unused_assignments)]
 pub fn frequency_counter<P>(minlen: i32, filepath: P)
 where
     P: AsRef<Path>,
 {
     let mut st: HashMap<String, i32> = HashMap::new();
-    let mut word_str = RefCell::new(String::new());
+    let mut word_str = String::new();
     if let Ok(lines) = read_lines(filepath) {
         for line in lines {
             if let Ok(l) = line {
@@ -28,15 +29,15 @@ where
                 // println!("{:?}", line_words);
                 for word in line_words {
                     // println!("{}", word);
-                    *word_str.get_mut() = word.to_string();
+                    word_str = word.to_string();
                     // println!("{:?}", word_str);
-                    if word_str.borrow().to_string().len() < minlen as usize {
+                    if word_str.len() < minlen as usize {
                         continue;
-                    } else if st.get(&word_str.borrow().to_string()) == None {
+                    } else if st.get(&word_str) == None {
                         // println!("word {}", word);
-                        st.insert(word_str.borrow().to_string(), 1);
+                        st.insert(word_str, 1);
                     } else {
-                        *st.get_mut(&word_str.borrow().to_string()).unwrap() += 1;
+                        *st.get_mut(&word_str).unwrap() += 1;
                     }
                 }
             }

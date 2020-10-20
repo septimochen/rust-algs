@@ -29,8 +29,8 @@ impl SequentialSearchST {
         }
     }
 
-    pub fn new(key: String) -> Self {
-        let new_head = Node::new(key);
+    pub fn new(key: String, val: i32, next: NodeOption) -> Self {
+        let new_head = Node::new(key, val, next);
 
         SequentialSearchST {
             first: Some(Box::new(new_head)),
@@ -61,13 +61,16 @@ impl ST for SequentialSearchST {
             }
             curr = curr.unwrap().next.as_mut();
         }
-        self.first = Some(Box::new(Node::new(new_key.borrow().to_string())));
+        self.first = Some(Box::new(Node::new(new_key.borrow().to_string(), val, self.first.clone())));
     }
 }
 
 #[test]
 fn st_test() {
-    let mut st1 = SequentialSearchST::new(String::from("ok"));
+    let mut st1 = SequentialSearchST::new(String::from("ok"), 1, None);
     st1.put("ok".to_string(), 3);
     println!("{:?}", st1.get(String::from("ok")));
+    st1.put("ok1".to_owned(), 34);
+    println!("{:?}", st1);
+    assert_eq!(st1.get("ok1".to_owned()).unwrap(), 34);
 }

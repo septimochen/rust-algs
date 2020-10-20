@@ -42,6 +42,12 @@ impl SequentialSearchST {
 
 impl ST for SequentialSearchST {
     fn get(&self, key: String) -> Option<i32> {
+        let curr = self.first.as_ref();
+        while curr.is_some() {
+            if curr.as_ref().unwrap().key == key {
+                return Some(curr.as_ref().unwrap().val)
+            }
+        }
         None
     }
     fn put(&mut self, key: String, val: i32) {
@@ -63,5 +69,5 @@ impl ST for SequentialSearchST {
 fn st_test() {
     let mut st1 = SequentialSearchST::new(String::from("ok"));
     st1.put("ok".to_string(), 3);
-    println!("{:?}", st1);
+    println!("{:?}", st1.get(String::from("ok")));
 }

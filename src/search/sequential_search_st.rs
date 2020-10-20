@@ -1,20 +1,26 @@
 use super::node::*;
 use std::cell::RefCell;
-use std::rc::Rc;
+// use std::rc::Rc;
+// use std::borrow::Borrow;
 
 pub trait ST {
     fn get(&self, key: String) -> Option<i32> {
+        println!("{}", key);
         None
     }
-    fn put(&mut self, key: String, val: i32) {}
+    fn put(&mut self, key: String, val: i32) {
+        println!("{}, {}", key, val);
+    }
 }
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Debug)]
+#[allow(dead_code)]
 pub struct SequentialSearchST {
     first: NodeOption,
     size: i32,
 }
 
+#[allow(dead_code)]
 impl SequentialSearchST {
     pub fn new_empty() -> Self {
         SequentialSearchST {
@@ -27,23 +33,11 @@ impl SequentialSearchST {
         let new_head = Node::new(key);
 
         SequentialSearchST {
-            first: Some(new_head),
+            first: Some(Box::new(new_head)),
             size: 1,
         }
     }
 
-    fn iter_node(&self) -> ListNodeIterator {
-        match &self.first {
-            Some(head) => ListNodeIterator::new(Some(Rc::clone(head))),
-            _ => ListNodeIterator::new(None),
-        }
-    }
-
-    pub fn print_items(&self) {
-        for node in self.iter_node() {
-            println!("the data is {}", node.borrow().key);
-        }
-    }
 }
 
 impl ST for SequentialSearchST {
@@ -51,6 +45,23 @@ impl ST for SequentialSearchST {
         None
     }
     fn put(&mut self, key: String, val: i32) {
-        let mut curr = &self.first;
+        let mut curr = self.first.as_mut();
+        let new_key = RefCell::new(key);
+        while curr.is_some() {
+            if curr.as_ref().unwrap().key == new_key.borrow().to_string() {
+                println!("{:?}", curr);
+                curr.as_mut().unwrap().val = val;
+                return;
+            }
+            curr = curr.unwrap().next.as_mut();
+        }
+        self.first = Some(Box::new(Node::new(new_key.borrow().to_string())));
     }
+}
+
+#[test]
+fn st_test() {
+    let mut st1 = SequentialSearchST::new(String::from("ok"));
+    st1.put("ok".to_string(), 3);
+    println!("{:?}", st1);
 }

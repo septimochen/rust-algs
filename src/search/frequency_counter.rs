@@ -50,6 +50,7 @@ where
 #[test]
 pub fn fq_test() {
     let path = Path::new("data/tale.txt");
-    let result = frequency_counter(0, &path);
+    let result = frequency_counter(8, &path);
     println!("{:?}", result);
+    assert_eq!(result, ("business".to_owned(), 122))
 }

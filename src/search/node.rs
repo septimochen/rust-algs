@@ -1,4 +1,4 @@
-// use std::cell::RefCell;
+use std::cell::Cell;
 // use std::rc::Rc;
 
 // Types
@@ -8,7 +8,7 @@ pub type NodeOption = Option<NodeRef>;
 #[derive(PartialEq, Debug, Clone)]
 pub struct Node {
     pub key: String,
-    pub val: i32,
+    pub val: Cell<i32>,
     pub next: NodeOption,
 }
 
@@ -16,7 +16,7 @@ impl Node {
     pub fn new(text: String, value:i32, next:NodeOption) -> Self {
         Node {
             key: text,
-            val: value,
+            val: Cell::new(value),
             next: next,
         }
     }

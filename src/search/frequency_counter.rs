@@ -27,10 +27,16 @@ where
                     word_str = word.to_string();
                     if word_str.len() < minlen as usize {
                         continue;
-                    } else if st.get(&word_str) == None {
-                        st.insert(word_str, 1);
+                    // } else if st.get(&word_str) == None {
+                    //     st.insert(word_str, 1);
+                    // } else {
+                    //     *st.get_mut(&word_str).unwrap() += 1;
+                    // }
                     } else {
-                        *st.get_mut(&word_str).unwrap() += 1;
+                        match st.get_mut(&word_str) {
+                            None => {st.insert(word_str, 1);},
+                            Some(x) => {*x += 1;},
+                        }
                     }
                 }
             }

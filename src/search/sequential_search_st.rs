@@ -45,7 +45,7 @@ impl ST for SequentialSearchST {
         let curr = self.first.as_ref();
         while curr.is_some() {
             if curr.as_ref().unwrap().key == key {
-                return Some(curr.as_ref().unwrap().val)
+                return Some(curr.as_ref().unwrap().val.get())
             }
         }
         None
@@ -55,8 +55,9 @@ impl ST for SequentialSearchST {
         let new_key = RefCell::new(key);
         while curr.is_some() {
             if curr.as_ref().unwrap().key == new_key.borrow().to_string() {
-                println!("{:?}", curr);
-                curr.as_mut().unwrap().val = val;
+                // println!("{:?}", curr);
+                curr.as_mut().unwrap().val.set(val);
+                self.size += 1;
                 return;
             }
             curr = curr.unwrap().next.as_mut();

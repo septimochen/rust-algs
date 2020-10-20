@@ -13,7 +13,7 @@ where
 
 #[allow(dead_code)]
 #[allow(unused_assignments)]
-pub fn frequency_counter<P>(minlen: i32, filepath: P)
+pub fn frequency_counter<P>(minlen: i32, filepath: P) -> (String, i32)
 where
     P: AsRef<Path>,
 {
@@ -43,11 +43,13 @@ where
             max_str = key.clone();
         }
     }
-    println!("{:?}: {:?}", max_str, st.get(&max_str).unwrap());
+    let max_num = st.get(&max_str.clone()).unwrap();
+    (max_str, *max_num)
 }
 
 #[test]
 pub fn fq_test() {
     let path = Path::new("data/tale.txt");
-    frequency_counter(0, &path);
+    let result = frequency_counter(0, &path);
+    println!("{:?}", result);
 }

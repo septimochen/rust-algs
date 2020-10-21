@@ -61,17 +61,17 @@ impl Drop for ListNode {
 #[derive(PartialEq, Debug, Clone)]
 pub struct Node {
     pub key: String,
-    pub val: Cell<i32>,
+    pub val: i32,
     pub left: NodeOption,
     pub right: NodeOption,
-    pub n: i32,
+    pub n: usize,
 }
 
 impl Node {
-    pub fn new(text: String, value:i32, n:i32) -> Self {
+    pub fn new(text: String, value:i32, n:usize) -> Self {
         Node {
             key: text,
-            val: Cell::new(value),
+            val: value,
             left: None,
             right: None,
             n: n,

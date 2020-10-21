@@ -1,7 +1,7 @@
 #[derive(Clone, Debug, PartialEq)]
 #[allow(dead_code)]
-struct BinarySearchST {
-    keys: Vec<String>,
+pub struct BinarySearchST {
+    pub keys: Vec<String>,
     vals: Vec<Option<i32>>,
     n: usize,
 }
@@ -27,18 +27,19 @@ impl BinarySearchST {
         }
 
         let mut lo = 0;
-        let mut hi = self.n - 1;
+        let mut hi: i32 = (self.n - 1) as i32;
         while lo <= hi {
             let mid = lo + (hi - lo) / 2;
-            if key < self.keys[mid] {
+            // println!("key: {}, mid: {}", key, mid);
+            if key < self.keys[mid as usize] {
                 hi = mid - 1;
-            } else if key > self.keys[mid] {
+            } else if key > self.keys[mid as usize] {
                 lo = mid + 1;
             } else {
-                return mid;
+                return mid as usize;
             }
         }
-        lo
+        lo as usize
     }
 
     pub fn get(&self, key: String) -> Option<i32> {
@@ -55,23 +56,29 @@ impl BinarySearchST {
 
     pub fn put(&mut self, key: String, val: i32) {
         let i = self.rank(key.clone());
-        if i >= self.n {
+        // println!("rank {}", i);
+        if self.n == 0 || i >= self.n {
             self.keys.push(key.clone());
             self.vals.push(Some(val));
-        }
-        if i < self.n && self.keys[i] == key.clone() {
+            self.n += 1;
+            return;
+        } else if i < self.n && self.keys[i] == key.clone() {
             self.vals[i] = Some(val);
             return;
-        }
-        let mut j = self.n;
-        while j > i {
-            self.keys[j] = self.keys[j - 1].to_string();
-            self.vals[j] = self.vals[j - 1];
+        } else {
+            let mut j = self.n;
+            self.keys.push(self.keys[j - 1].to_string());
+            self.vals.push(self.vals[j - 1]);
             j -= 1;
+            while j > i {
+                self.keys[j] = self.keys[j - 1].to_string();
+                self.vals[j] = self.vals[j - 1];
+                j -= 1;
+            }
+            self.keys[i] = key;
+            self.vals[i] = Some(val);
+            self.n += 1;
         }
-        self.keys[i] = key;
-        self.vals[i] = Some(val);
-        self.n += 1;
     }
 }
 

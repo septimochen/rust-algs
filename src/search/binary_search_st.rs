@@ -56,20 +56,13 @@ impl BinarySearchST {
 
     pub fn put(&mut self, key: String, val: i32) {
         let i = self.rank(key.clone());
-        // println!("rank {}", i);
-        if self.n == 0 || i >= self.n {
-            self.keys.push(key.clone());
-            self.vals.push(Some(val));
-            self.n += 1;
-            return;
-        } else if i < self.n && self.keys[i] == key.clone() {
+        if i < self.n && self.keys[i] == key.clone() {
             self.vals[i] = Some(val);
             return;
         } else {
             let mut j = self.n;
-            self.keys.push(self.keys[j - 1].to_string());
-            self.vals.push(self.vals[j - 1]);
-            j -= 1;
+            self.keys.resize(self.n + 1, String::from(""));
+            self.vals.resize(self.n + 1, Some(0));
             while j > i {
                 self.keys[j] = self.keys[j - 1].to_string();
                 self.vals[j] = self.vals[j - 1];

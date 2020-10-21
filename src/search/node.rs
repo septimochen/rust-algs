@@ -2,19 +2,22 @@ use std::cell::Cell;
 // use std::rc::Rc;
 
 // Types
+type ListNodeRef = Box<ListNode>;
+pub type ListNodeOption = Option<ListNodeRef>;
+
 type NodeRef = Box<Node>;
 pub type NodeOption = Option<NodeRef>;
 
 #[derive(PartialEq, Debug, Clone)]
-pub struct Node {
+pub struct ListNode {
     pub key: String,
     pub val: Cell<i32>,
-    pub next: NodeOption,
+    pub next: ListNodeOption,
 }
 
-impl Node {
-    pub fn new(text: String, value:i32, next:NodeOption) -> Self {
-        Node {
+impl ListNode {
+    pub fn new(text: String, value:i32, next:ListNodeOption) -> Self {
+        ListNode {
             key: text,
             val: Cell::new(value),
             next: next,
@@ -22,7 +25,7 @@ impl Node {
     }
 }
 
-impl Drop for Node {
+impl Drop for ListNode {
     fn drop(&mut self) {
         println!("Node with this data -> '{}' just dropped", self.key);
     }
@@ -53,3 +56,31 @@ impl Drop for Node {
 //         }
 //     );
 // }
+
+
+#[derive(PartialEq, Debug, Clone)]
+pub struct Node {
+    pub key: String,
+    pub val: Cell<i32>,
+    pub left: NodeOption,
+    pub right: NodeOption,
+    pub n: i32,
+}
+
+impl Node {
+    pub fn new(text: String, value:i32, n:i32) -> Self {
+        Node {
+            key: text,
+            val: Cell::new(value),
+            left: None,
+            right: None,
+            n: n,
+        }
+    }
+}
+
+impl Drop for Node {
+    fn drop(&mut self) {
+        println!("Node with this data -> '{}' just dropped", self.key);
+    }
+}

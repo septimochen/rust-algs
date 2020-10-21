@@ -16,7 +16,7 @@ pub trait ST {
 #[derive(PartialEq, Debug)]
 #[allow(dead_code)]
 pub struct SequentialSearchST {
-    first: NodeOption,
+    first: ListNodeOption,
     size: i32,
 }
 
@@ -29,8 +29,8 @@ impl SequentialSearchST {
         }
     }
 
-    pub fn new(key: String, val: i32, next: NodeOption) -> Self {
-        let new_head = Node::new(key, val, next);
+    pub fn new(key: String, val: i32, next: ListNodeOption) -> Self {
+        let new_head = ListNode::new(key, val, next);
 
         SequentialSearchST {
             first: Some(Box::new(new_head)),
@@ -62,7 +62,7 @@ impl ST for SequentialSearchST {
             }
             curr = curr.unwrap().next.as_mut();
         }
-        self.first = Some(Box::new(Node::new(new_key.borrow().to_string(), val, self.first.clone())));
+        self.first = Some(Box::new(ListNode::new(new_key.borrow().to_string(), val, self.first.clone())));
     }
 }
 

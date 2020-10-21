@@ -22,10 +22,14 @@ impl BinarySearchST {
 
     pub fn rank(&self, key: String) -> usize {
         // println!("{}", key);
-        let mut lo = 0 as usize;
+        if self.n == 0 {
+            return 0;
+        }
+
+        let mut lo = 0;
         let mut hi = self.n - 1;
         while lo <= hi {
-            let mid = lo + (hi - lo)/2;
+            let mid = lo + (hi - lo) / 2;
             if key < self.keys[mid] {
                 hi = mid - 1;
             } else if key > self.keys[mid] {
@@ -51,7 +55,11 @@ impl BinarySearchST {
 
     pub fn put(&mut self, key: String, val: i32) {
         let i = self.rank(key.clone());
-        if i < self.n && self.keys[i] == key {
+        if i >= self.n {
+            self.keys.push(key.clone());
+            self.vals.push(Some(val));
+        }
+        if i < self.n && self.keys[i] == key.clone() {
             self.vals[i] = Some(val);
             return;
         }
@@ -67,12 +75,15 @@ impl BinarySearchST {
     }
 }
 
-
 #[test]
 pub fn binary_search_st_test() {
     let mut st2 = BinarySearchST::new();
+    println!("{:?}", st2.keys.capacity());
     st2.put("ok".to_owned(), 3);
-    let v = st2.get(String::from("ok"));
-    println!("{:?}", st2);
-    assert_eq!(v, Some(3));
+    // let v = st2.get(String::from("ok"));
+    st2.put("ok".to_owned(), 5);
+    st2.put("ok2".to_owned(), 33);
+    let v2 = st2.get(String::from("ok2"));
+    println!("{:?}", st2.keys.capacity());
+    assert_eq!(v2, Some(33));
 }

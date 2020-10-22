@@ -11,7 +11,7 @@ pub struct BST {
 impl BST {
     pub fn new() -> BST{
         BST {
-            root: None
+            root: None,
         }
     }
 
@@ -22,6 +22,12 @@ impl BST {
         }
     }
     
+    pub fn keys(&self) -> Vec<String> {
+        match self.root {
+            None => vec![],
+            Some(ref n) => n.keys(),
+        }
+    }
     pub fn put(&mut self, key: String, val: i32) {
         match self.root {
             None => {

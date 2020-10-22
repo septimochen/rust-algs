@@ -89,6 +89,11 @@ impl Node {
         self.key.clone()
     }
 
+    pub fn keys(&self) -> Vec<String> {
+        let mut ks: Vec<String> = Vec::new();
+        ks
+    }
+
     pub fn _value(&self) -> i32 {
         self.val.clone()
     }

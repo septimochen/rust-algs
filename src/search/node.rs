@@ -63,27 +63,27 @@ pub struct Node {
     pub val: i32,
     pub left: Child,
     pub right: Child,
-    // pub n: usize,
+    pub n: usize,
 }
 
 impl Node {
-    pub fn new(text: String, value: i32) -> Self {
+    pub fn new(text: String, value: i32, n: usize) -> Self {
         Node {
             key: text,
             val: value,
             left: None,
             right: None,
-            // n: n,
+            n: n,
         }
     }
 
-    // pub fn size(x: Child) -> usize {
-    //     if x == None {
-    //         return 0;
-    //     } else {
-    //         x.unwrap().n
-    //     }
-    // }
+    pub fn size(x: Child) -> usize {
+        if x == None {
+            return 0;
+        } else {
+            x.unwrap().n
+        }
+    }
 
     pub fn _key(&self) -> String {
         self.key.clone()
@@ -116,18 +116,20 @@ impl Node {
         match key.cmp(&self.key) {
                 Ordering::Less => match self.left {
                     None => {
-                        swap(&mut self.left, &mut Some(Box::from(Node::new(key, val))))
+                        swap(&mut self.left, &mut Some(Box::from(Node::new(key, val, 1))))
                     }
                     Some(ref mut n) => {n.put(key, val)},
+
                 },
     
                 Ordering::Greater => match self.right {
                     None => {
-                        swap(&mut self.right, &mut Some(Box::from(Node::new(key, val))))
+                        swap(&mut self.right, &mut Some(Box::from(Node::new(key, val, 1))))
                     },
                     Some(ref mut n) => {n.put(key, val)},
                 },
                 Ordering::Equal => {self.val = val}
         }
+        self.n = Node::size(self.left.clone()) + Node::size(self.right.clone()) + 1;
     }
 }

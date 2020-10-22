@@ -31,7 +31,7 @@ impl BST {
     pub fn put(&mut self, key: String, val: i32) {
         match self.root {
             None => {
-                swap(&mut self.root, &mut Some(Box::from(Node::new(key, val))));
+                swap(&mut self.root, &mut Some(Box::from(Node::new(key, val, 1))));
             },
             Some(ref mut n) => {
                 n.put(key, val);

@@ -1,12 +1,13 @@
 use std::cell::Cell;
 // use std::rc::Rc;
+use std::cmp::Ordering;
+use std::mem::swap;
 
 // Types
 type ListNodeRef = Box<ListNode>;
 pub type ListNodeOption = Option<ListNodeRef>;
 
-type NodeRef = Box<Node>;
-pub type NodeOption = Option<NodeRef>;
+pub type Child = Option<Box<Node>>;
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct ListNode {
@@ -16,7 +17,7 @@ pub struct ListNode {
 }
 
 impl ListNode {
-    pub fn new(text: String, value:i32, next:ListNodeOption) -> Self {
+    pub fn new(text: String, value: i32, next: ListNodeOption) -> Self {
         ListNode {
             key: text,
             val: Cell::new(value),
@@ -42,7 +43,6 @@ impl Drop for ListNode {
 //     }
 // }
 
-
 // #[test]
 // fn test_new_node() {
 //     let node = Node::new("node_1".to_string());
@@ -57,30 +57,72 @@ impl Drop for ListNode {
 //     );
 // }
 
-
 #[derive(PartialEq, Debug, Clone)]
 pub struct Node {
     pub key: String,
     pub val: i32,
-    pub left: NodeOption,
-    pub right: NodeOption,
-    pub n: usize,
+    pub left: Child,
+    pub right: Child,
+    // pub n: usize,
 }
 
 impl Node {
-    pub fn new(text: String, value:i32, n:usize) -> Self {
+    pub fn new(text: String, value: i32) -> Self {
         Node {
             key: text,
             val: value,
             left: None,
             right: None,
-            n: n,
+            // n: n,
         }
     }
-}
 
-impl Drop for Node {
-    fn drop(&mut self) {
-        println!("Node with this data -> '{}' just dropped", self.key);
+    // pub fn size(x: Child) -> usize {
+    //     if x == None {
+    //         return 0;
+    //     } else {
+    //         x.unwrap().n
+    //     }
+    // }
+
+    pub fn _key(&self) -> String {
+        self.key.clone()
+    }
+
+    pub fn _value(&self) -> i32 {
+        self.val.clone()
+    }
+
+    pub fn get(&self, key: &String) -> Option<i32> {
+        match key.cmp(&self.key) {
+                Ordering::Less => match self.left {
+                    None => None,
+                    Some(ref n) => Node::get(n, key)
+                },
+                Ordering::Greater => match self.right {
+                    None => None,
+                    Some(ref n) => Node::get(n, key)
+                },
+                Ordering::Equal => Some(self.val),
+        }
+    }
+
+    pub fn put(&mut self, key: String, val: i32) {
+        match key.cmp(&self.key) {
+                Ordering::Less => match self.left {
+                    None => {
+                        swap(&mut self.left, &mut Some(Box::from(Node::new(key, val))))
+                    }
+                    Some(ref mut n) => {n.put(key, val)},
+                },
+    
+                Ordering::Greater => match self.right {
+                    None => {
+                        swap(&mut self.right, &mut Some(Box::from(Node::new(key, val))))
+                    },
+                    Some(ref mut n) => {n.put(key, val)},
+                },
+                Ordering::Equal => {self.val = val}
+        }
     }
 }

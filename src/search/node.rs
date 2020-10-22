@@ -58,6 +58,7 @@ impl Drop for ListNode {
 // }
 
 #[derive(PartialEq, Debug, Clone)]
+#[allow(dead_code)]
 pub struct Node {
     pub key: String,
     pub val: i32,
@@ -131,5 +132,14 @@ impl Node {
                 Ordering::Equal => {self.val = val}
         }
         self.n = Node::size(self.left.clone()) + Node::size(self.right.clone()) + 1;
+    }
+
+    pub fn min(&self) -> Node {
+        let node = self.clone();
+        if node.left == None {
+            self.clone()
+        } else {
+            node.left.unwrap().min()
+        }
     }
 }

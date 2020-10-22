@@ -19,6 +19,10 @@ impl BST {
         Node::size(self.root.clone())
     }
 
+    pub fn min(&self) -> String {
+        self.root.as_ref().unwrap().min().key
+    }
+
     pub fn get(&self, key: String) -> Option<i32> {
         match &self.root {
             None => None,
@@ -50,6 +54,6 @@ pub fn bst_test1() {
     bst1.put("ok".to_owned(), 12);
     bst1.put("a".to_string(), 1);
     bst1.put("zed".to_string(), 33);
-    println!("{:?}", bst1);
+    println!("{:?}", bst1.min());
     assert_eq!(bst1.get("zed".to_string()), Some(33))
 }

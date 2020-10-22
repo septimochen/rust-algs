@@ -4,7 +4,7 @@ use std::mem::swap;
 #[derive(Debug, PartialEq, Clone)]
 #[allow(dead_code)]
 pub struct BST {
-    root: Child,
+    pub root: Child,
 }
 
 #[allow(dead_code)]
@@ -13,6 +13,10 @@ impl BST {
         BST {
             root: None,
         }
+    }
+
+    pub fn size(&self) -> usize {
+        Node::size(self.root.clone())
     }
 
     pub fn get(&self, key: String) -> Option<i32> {

@@ -133,7 +133,7 @@ where
             }
         }
     }
-    println!("{:?}", st.get("the".to_owned()));
+    println!("{:?} with size {}", st.get("the".to_owned()), st.size());
     let mut max_str = String::from("");
     st.put(max_str.clone(), 0);
     for key in &st.keys() {

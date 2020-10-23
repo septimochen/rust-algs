@@ -62,6 +62,10 @@ impl BST {
             Some(n) => Some(n.key),
         }
     }
+
+    pub fn rank(&self, key: &String) -> i32 {
+        self.root.as_ref().unwrap().rank(key)
+    }
 }
 
 #[test]
@@ -71,6 +75,6 @@ pub fn bst_test1() {
     bst1.put("a".to_string(), 1);
     bst1.put("zed".to_string(), 33);
     // println!("{:?}", bst1.floor("A".to_owned()));
-    println!("{:?}", bst1.select(2));
+    println!("{:?}", bst1.rank(&"zed1".to_owned()));
     assert_eq!(bst1.get("zed".to_string()), Some(33))
 }

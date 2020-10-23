@@ -182,4 +182,15 @@ impl Node {
             Node::select(&x.clone().unwrap().right, k - t - 1)
         }
     }
+
+    pub fn rank(&self, key: &String) -> i32 {
+        if self.get(key) == None {
+            return -1
+        }
+        match key.cmp(&self.key) {
+            Ordering::Equal => Node::size(self.left.clone()) as i32,
+            Ordering::Less => self.left.clone().unwrap().rank(key),
+            Ordering::Greater => self.right.clone().unwrap().rank(key) + Node::size(self.left.clone()) as i32 + 1,
+        }
+    }
 }

@@ -168,4 +168,18 @@ impl Node {
             }
         }
     }
+
+    pub fn select(x: &Child, k: usize) -> Child {
+        if k >= Node::size(x.clone()) {
+            panic!("out of bounds")
+        }
+        let t = Node::size(x.clone().unwrap().left);
+        if k == t {
+            return x.clone()
+        } else if k < t {
+            Node::select(&x.clone().unwrap().left, k)
+        } else {
+            Node::select(&x.clone().unwrap().right, k - t - 1)
+        }
+    }
 }

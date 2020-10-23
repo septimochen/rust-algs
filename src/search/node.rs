@@ -142,4 +142,30 @@ impl Node {
             node.left.unwrap().min()
         }
     }
+
+    pub fn floor(x: &Child, key: String) -> Child {
+        if *x == None {
+            return None
+        } else {
+            match key.cmp(&x.clone().unwrap().key) {
+                Ordering::Equal => {x.clone()},
+                Ordering::Less => {
+                    if x.as_ref().unwrap().left ==None {
+                        return None
+                    } else {
+                        Node::floor(&x.as_ref().unwrap().left, key)
+                    }
+                },
+                Ordering::Greater => {
+                    let node = x.clone().unwrap().right;
+                    let t = Node::floor(&node, key);
+                    if t == None {
+                        return x.clone()
+                    } else {
+                        return t
+                    }
+                }
+            }
+        }
+    }
 }

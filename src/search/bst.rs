@@ -46,6 +46,14 @@ impl BST {
             }
         }
     }
+
+    pub fn floor(&self, key: String) -> Option<String> {
+        let node = Node::floor(&self.root, key);
+        match node {
+            None => None,
+            Some(n) => Some(n.key),
+        }
+    }
 }
 
 #[test]
@@ -54,6 +62,6 @@ pub fn bst_test1() {
     bst1.put("ok".to_owned(), 12);
     bst1.put("a".to_string(), 1);
     bst1.put("zed".to_string(), 33);
-    println!("{:?}", bst1.min());
+    println!("{:?}", bst1.floor("A".to_owned()));
     assert_eq!(bst1.get("zed".to_string()), Some(33))
 }

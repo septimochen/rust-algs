@@ -210,13 +210,13 @@ impl Node {
                 self.left = self.left.clone().unwrap().delete_min();
                 self.n = Node::size(self.left.clone()) + Node::size(self.right.clone()) + 1;
                 return Some(Box::from(self.clone()));
-            },
+            }
         }
     }
 
     pub fn print(x: Child) {
         if x == None {
-            return
+            return;
         } else {
             Node::print(x.clone().unwrap().left);
             print!(" {}", x.clone().unwrap().key);

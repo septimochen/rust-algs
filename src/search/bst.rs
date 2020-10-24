@@ -83,8 +83,13 @@ pub fn bst_test1() {
     bst1.put("a".to_string(), 1);
     bst1.put("zed".to_string(), 33);
     // println!("{:?}", bst1.floor("A".to_owned()));
-    println!("{:?}", bst1.rank(&"zed1".to_owned()));
+    // println!("{:?}", bst1.rank(&"zed1".to_owned()));
+    println!("{:?}", bst1);
     bst1.delete_min();
     println!("{:?}", bst1);
-    assert_eq!(bst1.get("zed".to_string()), Some(33))
+    bst1.delete_min();
+    println!("{:?}", bst1);
+    assert_eq!(bst1.get("zed".to_string()), Some(33));
+    bst1.delete_min();
+    println!("{:?}", bst1);
 }

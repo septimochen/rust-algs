@@ -91,8 +91,8 @@ impl Node {
     }
 
     pub fn keys(&self) -> Vec<String> {
-        let mut ks: Vec<String> = Vec::new();
-        ks
+        let mut _ks: Vec<String> = Vec::new();
+        _ks
     }
 
     pub fn _value(&self) -> i32 {
@@ -101,35 +101,33 @@ impl Node {
 
     pub fn get(&self, key: &String) -> Option<i32> {
         match key.cmp(&self.key) {
-                Ordering::Less => match self.left {
-                    None => None,
-                    Some(ref n) => Node::get(n, key)
-                },
-                Ordering::Greater => match self.right {
-                    None => None,
-                    Some(ref n) => Node::get(n, key)
-                },
-                Ordering::Equal => Some(self.val),
+            Ordering::Less => match self.left {
+                None => None,
+                Some(ref n) => Node::get(n, key),
+            },
+            Ordering::Greater => match self.right {
+                None => None,
+                Some(ref n) => Node::get(n, key),
+            },
+            Ordering::Equal => Some(self.val),
         }
     }
 
     pub fn put(&mut self, key: String, val: i32) {
         match key.cmp(&self.key) {
-                Ordering::Less => match self.left {
-                    None => {
-                        swap(&mut self.left, &mut Some(Box::from(Node::new(key, val, 1))))
-                    }
-                    Some(ref mut n) => {n.put(key, val)},
+            Ordering::Less => match self.left {
+                None => swap(&mut self.left, &mut Some(Box::from(Node::new(key, val, 1)))),
+                Some(ref mut n) => n.put(key, val),
+            },
 
-                },
-    
-                Ordering::Greater => match self.right {
-                    None => {
-                        swap(&mut self.right, &mut Some(Box::from(Node::new(key, val, 1))))
-                    },
-                    Some(ref mut n) => {n.put(key, val)},
-                },
-                Ordering::Equal => {self.val = val}
+            Ordering::Greater => match self.right {
+                None => swap(
+                    &mut self.right,
+                    &mut Some(Box::from(Node::new(key, val, 1))),
+                ),
+                Some(ref mut n) => n.put(key, val),
+            },
+            Ordering::Equal => self.val = val,
         }
         self.n = Node::size(self.left.clone()) + Node::size(self.right.clone()) + 1;
     }
@@ -154,24 +152,24 @@ impl Node {
 
     pub fn floor(x: &Child, key: String) -> Child {
         if *x == None {
-            return None
+            return None;
         } else {
             match key.cmp(&x.clone().unwrap().key) {
-                Ordering::Equal => {x.clone()},
+                Ordering::Equal => x.clone(),
                 Ordering::Less => {
-                    if x.as_ref().unwrap().left ==None {
-                        return None
+                    if x.as_ref().unwrap().left == None {
+                        return None;
                     } else {
                         Node::floor(&x.as_ref().unwrap().left, key)
                     }
-                },
+                }
                 Ordering::Greater => {
                     let node = x.clone().unwrap().right;
                     let t = Node::floor(&node, key);
                     if t == None {
-                        return x.clone()
+                        return x.clone();
                     } else {
-                        return t
+                        return t;
                     }
                 }
             }
@@ -184,7 +182,7 @@ impl Node {
         }
         let t = Node::size(x.clone().unwrap().left);
         if k == t {
-            return x.clone()
+            return x.clone();
         } else if k < t {
             Node::select(&x.clone().unwrap().left, k)
         } else {
@@ -194,12 +192,25 @@ impl Node {
 
     pub fn rank(&self, key: &String) -> i32 {
         if self.get(key) == None {
-            return -1
+            return -1;
         }
         match key.cmp(&self.key) {
             Ordering::Equal => Node::size(self.left.clone()) as i32,
             Ordering::Less => self.left.clone().unwrap().rank(key),
-            Ordering::Greater => self.right.clone().unwrap().rank(key) + Node::size(self.left.clone()) as i32 + 1,
+            Ordering::Greater => {
+                self.right.clone().unwrap().rank(key) + Node::size(self.left.clone()) as i32 + 1
+            }
+        }
+    }
+
+    pub fn delete_min(&mut self) -> Child {
+        match self.left.clone() {
+            None => self.right.clone(),
+            Some(_) => {
+                self.left = self.left.clone().unwrap().delete_min();
+                self.n = Node::size(self.left.clone()) + Node::size(self.right.clone()) + 1;
+                return Some(Box::from(self.clone()));
+            },
         }
     }
 }

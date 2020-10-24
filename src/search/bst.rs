@@ -1,4 +1,4 @@
-use super::node::{Node, Child};
+use super::node::{Child, Node};
 use std::mem::swap;
 
 #[derive(Debug, PartialEq, Clone)]
@@ -9,10 +9,8 @@ pub struct BST {
 
 #[allow(dead_code)]
 impl BST {
-    pub fn new() -> BST{
-        BST {
-            root: None,
-        }
+    pub fn new() -> BST {
+        BST { root: None }
     }
 
     pub fn size(&self) -> usize {
@@ -30,10 +28,10 @@ impl BST {
     pub fn get(&self, key: String) -> Option<i32> {
         match &self.root {
             None => None,
-            Some(ref n) => n.get(&key)
+            Some(ref n) => n.get(&key),
         }
     }
-    
+
     pub fn keys(&self) -> Vec<String> {
         match self.root {
             None => vec![],
@@ -44,7 +42,7 @@ impl BST {
         match self.root {
             None => {
                 swap(&mut self.root, &mut Some(Box::from(Node::new(key, val, 1))));
-            },
+            }
             Some(ref mut n) => {
                 n.put(key, val);
             }

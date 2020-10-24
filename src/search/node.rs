@@ -216,6 +216,7 @@ impl Node {
 
     pub fn print(x: Child) {
         if x.is_none() {
+            return
         } else {
             Node::print(x.clone().unwrap().left);
             print!(" {}", x.clone().unwrap().key);

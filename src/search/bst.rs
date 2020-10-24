@@ -23,6 +23,10 @@ impl BST {
         self.root.as_ref().unwrap().min().key
     }
 
+    pub fn max(&self) -> String {
+        self.root.as_ref().unwrap().max().key
+    }
+
     pub fn get(&self, key: String) -> Option<i32> {
         match &self.root {
             None => None,

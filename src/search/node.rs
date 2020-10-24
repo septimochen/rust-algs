@@ -143,6 +143,15 @@ impl Node {
         }
     }
 
+    pub fn max(&self) -> Node {
+        let node = self.clone();
+        if node.right == None {
+            self.clone()
+        } else {
+            node.right.unwrap().max()
+        }
+    }
+
     pub fn floor(x: &Child, key: String) -> Child {
         if *x == None {
             return None

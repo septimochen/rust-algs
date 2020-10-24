@@ -213,4 +213,13 @@ impl Node {
             },
         }
     }
+
+    pub fn print(x: Child) {
+        if x.is_none() {
+        } else {
+            Node::print(x.clone().unwrap().left);
+            print!(" {}", x.clone().unwrap().key);
+            Node::print(x.clone().unwrap().right);
+        }
+    }
 }

@@ -215,7 +215,7 @@ impl Node {
     }
 
     pub fn print(x: Child) {
-        if x.is_none() {
+        if x == None {
             return
         } else {
             Node::print(x.clone().unwrap().left);

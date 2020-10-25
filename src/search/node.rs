@@ -219,7 +219,7 @@ impl Node {
             return;
         } else {
             Node::print(x.clone().unwrap().left);
-            print!(" {}", x.clone().unwrap().key);
+            print!(" {:?}", x.clone().unwrap().key);
             Node::print(x.clone().unwrap().right);
         }
     }

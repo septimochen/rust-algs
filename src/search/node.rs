@@ -203,14 +203,6 @@ impl Node {
     }
 
     pub fn delete_min(x: Child) -> (Child, Child) {
-        // match self.left.clone() {
-        //     None => self.right.clone(),
-        //     Some(_) => {
-        //         self.left = self.left.clone().unwrap().delete_min();
-        //         self.n = Node::size(self.left.clone()) + Node::size(self.right.clone()) + 1;
-        //         return Some(Box::from(self.clone()));
-        //     }
-        // }
         let mut x = x;
         if x.is_none() {
             return (None, None);
@@ -226,13 +218,18 @@ impl Node {
         }
     }
 
-    pub fn delete_max(&mut self) -> Child {
-        match self.right.clone() {
-            None => self.left.clone(),
-            Some(_) => {
-                self.right = self.right.clone().unwrap().delete_max();
-                self.n = Node::size(self.left.clone()) + Node::size(self.right.clone()) + 1;
-                return Some(Box::from(self.clone()));
+    pub fn delete_max(x: Child) -> (Child, Child) {
+        let mut x = x;
+        if x.is_none() {
+            return (None, None);
+        }
+
+        match x.as_mut().unwrap().right.take() {
+            None => (x.as_mut().unwrap().left.take(), x),
+            Some(right) => {
+                let (t, deleted) = Node::delete_min(Some(right));
+                x.as_mut().unwrap().right = t;
+                (x, deleted)
             }
         }
     }

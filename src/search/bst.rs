@@ -70,7 +70,7 @@ impl BST {
     }
 
     pub fn delete_min(&mut self) {
-        self.root = self.root.clone().unwrap().delete_min()
+        self.root = Node::delete_min(self.root.take()).0;
     }
 
     pub fn delete_max(&mut self) {
@@ -79,6 +79,10 @@ impl BST {
 
     pub fn print(&self) {
         Node::print(self.root.clone())
+    }
+
+    pub fn delete(&mut self, key: &String) {
+        self.root = Node::delete(self.root.take(), key);
     }
 }
 
@@ -91,9 +95,9 @@ pub fn bst_test1() {
     // println!("{:?}", bst1.floor("A".to_owned()));
     // println!("{:?}", bst1.rank(&"zed1".to_owned()));
     println!("{:?}", bst1.print());
-    bst1.delete_min();
-    println!("{:?}", bst1.print());
-    bst1.delete_min();
+    // bst1.delete_min();
+    // println!("{:?}", bst1.print());
+    bst1.delete(&"a".to_owned());
     println!("{:?}", bst1.print());
     assert_eq!(bst1.get("zed".to_string()), Some(33));
     bst1.delete_min();

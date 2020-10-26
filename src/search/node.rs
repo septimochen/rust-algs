@@ -203,13 +203,26 @@ impl Node {
         }
     }
 
-    pub fn delete_min(&mut self) -> Child {
-        match self.left.clone() {
-            None => self.right.clone(),
-            Some(_) => {
-                self.left = self.left.clone().unwrap().delete_min();
-                self.n = Node::size(self.left.clone()) + Node::size(self.right.clone()) + 1;
-                return Some(Box::from(self.clone()));
+    pub fn delete_min(x: Child) -> (Child, Child) {
+        // match self.left.clone() {
+        //     None => self.right.clone(),
+        //     Some(_) => {
+        //         self.left = self.left.clone().unwrap().delete_min();
+        //         self.n = Node::size(self.left.clone()) + Node::size(self.right.clone()) + 1;
+        //         return Some(Box::from(self.clone()));
+        //     }
+        // }
+        let mut x = x;
+        if x.is_none() {
+            return (None, None);
+        }
+
+        match x.as_mut().unwrap().left.take() {
+            None => (x.as_mut().unwrap().right.take(), x),
+            Some(left) => {
+                let (t, deleted) = Node::delete_min(Some(left));
+                x.as_mut().unwrap().left = t;
+                (x, deleted)
             }
         }
     }
@@ -225,11 +238,37 @@ impl Node {
         }
     }
 
-    pub fn delete(x: Child, key: String) -> Child {
+    pub fn delete(x: Child, key: &String) -> Child {
         if x.is_none() {
-            None
-        } else {
-            x
+            return None
+        } 
+
+        let mut x = x;
+        match key.cmp(&x.as_ref().unwrap().key) {
+            Ordering::Less => {
+                let left = x.as_mut().unwrap().left.take();
+                x.as_mut().unwrap().left = Node::delete(left, key);
+                return x;
+            },
+            Ordering::Greater => {
+                let right = x.as_mut().unwrap().right.take();
+                x.as_mut().unwrap().right = Node::delete(right, key);
+                return x;
+            },
+            Ordering::Equal => {
+                if x.as_ref().unwrap().right.is_none() {
+                    return x.as_mut().unwrap().left.take();
+                }
+                if x.as_ref().unwrap().left.is_none() {
+                    return x.as_mut().unwrap().right.take();
+                }
+
+                let mut t = x.clone();
+                let (right, _right_min) = Node::delete_min(t.as_mut().unwrap().right.take());
+                x.as_mut().unwrap().right = right;
+                x.as_mut().unwrap().left = t.as_mut().unwrap().left.take();
+                x
+            },
         }
 
     }

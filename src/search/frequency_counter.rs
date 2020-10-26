@@ -1,9 +1,9 @@
+use super::binary_search_st::BinarySearchST;
+use super::bst::BST;
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
-use super::binary_search_st::BinarySearchST;
-use super::bst::BST;
 
 fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
 where
@@ -36,8 +36,12 @@ where
                     // }
                     } else {
                         match st.get_mut(&word_str) {
-                            None => {st.insert(word_str, 1);},
-                            Some(x) => {*x += 1;},
+                            None => {
+                                st.insert(word_str, 1);
+                            }
+                            Some(x) => {
+                                *x += 1;
+                            }
                         }
                     }
                 }
@@ -79,8 +83,12 @@ where
                     } else {
                         // println!("{}", word);
                         match st.get(word.to_string()) {
-                            None => {st.put(word_str, 1);},
-                            Some(x) => {st.put(word_str.to_string(), x+1);},
+                            None => {
+                                st.put(word_str, 1);
+                            }
+                            Some(x) => {
+                                st.put(word_str.to_string(), x + 1);
+                            }
                         }
                         // println!("{:?}", st);
                     }
@@ -124,8 +132,12 @@ where
                     } else {
                         // println!("{}", word);
                         match st.get(word.to_string()) {
-                            None => {st.put(word_str, 1);},
-                            Some(x) => {st.put(word_str.to_string(), x+1);},
+                            None => {
+                                st.put(word_str, 1);
+                            }
+                            Some(x) => {
+                                st.put(word_str.to_string(), x + 1);
+                            }
                         }
                         // println!("{:?}", st);
                     }

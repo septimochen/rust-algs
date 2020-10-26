@@ -225,6 +225,15 @@ impl Node {
         }
     }
 
+    pub fn delete(x: Child, key: String) -> Child {
+        if x.is_none() {
+            None
+        } else {
+            x
+        }
+
+    }
+
     pub fn print(x: Child) {
         if x == None {
             return;

@@ -1,5 +1,4 @@
 use std::cell::Cell;
-// use std::rc::Rc;
 use std::cmp::Ordering;
 use std::mem::swap;
 
@@ -240,8 +239,8 @@ impl Node {
 
     pub fn delete(x: Child, key: &String) -> Child {
         if x.is_none() {
-            return None
-        } 
+            return None;
+        }
 
         let mut x = x;
         match key.cmp(&x.as_ref().unwrap().key) {
@@ -249,12 +248,12 @@ impl Node {
                 let left = x.as_mut().unwrap().left.take();
                 x.as_mut().unwrap().left = Node::delete(left, key);
                 return x;
-            },
+            }
             Ordering::Greater => {
                 let right = x.as_mut().unwrap().right.take();
                 x.as_mut().unwrap().right = Node::delete(right, key);
                 return x;
-            },
+            }
             Ordering::Equal => {
                 if x.as_ref().unwrap().right.is_none() {
                     return x.as_mut().unwrap().left.take();
@@ -268,9 +267,8 @@ impl Node {
                 x.as_mut().unwrap().right = right;
                 x.as_mut().unwrap().left = t.as_mut().unwrap().left.take();
                 x
-            },
+            }
         }
-
     }
 
     pub fn print(x: Child) {

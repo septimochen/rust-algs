@@ -133,7 +133,7 @@ where
             }
         }
     }
-    println!("{:?} with size {}", st.get("the".to_owned()), st.size());
+    // println!("{:?} with size {}", st.get("the".to_owned()), st.size());
     let mut max_str = String::from("");
     st.put(max_str.clone(), 0);
     for key in st.keys() {
@@ -155,8 +155,8 @@ pub fn fq_test_v2() {
 
 #[test]
 pub fn fq_test_bst() {
-    let path = Path::new("data/tinyTale.txt");
-    let result = frequency_counter_bst(2, &path);
+    let path = Path::new("data/tale.txt");
+    let result = frequency_counter_bst(8, &path);
     println!("{:?}", result);
-    assert_eq!(result, ("the".to_owned(), 13))
+    assert_eq!(result, ("business".to_owned(), 122))
 }

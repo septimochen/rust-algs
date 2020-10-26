@@ -136,7 +136,7 @@ where
     println!("{:?} with size {}", st.get("the".to_owned()), st.size());
     let mut max_str = String::from("");
     st.put(max_str.clone(), 0);
-    for key in &st.keys() {
+    for key in st.keys() {
         if st.get(key.to_string()).unwrap() > st.get(max_str.to_string()).unwrap() {
             max_str = key.clone();
         }

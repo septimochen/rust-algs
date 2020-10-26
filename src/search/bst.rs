@@ -32,12 +32,20 @@ impl BST {
         }
     }
 
-    pub fn keys(&self) -> Vec<String> {
-        match self.root {
-            None => vec![],
-            Some(ref n) => n.keys(),
-        }
+    pub fn keys<'a>(&'a self) -> ::std::vec::IntoIter<&'a String> {
+        let mut queue: Vec<&'a String> = Vec::new();
+        fn inorder<'a>(x: Option<&'a Box<Node>>, queue: &mut Vec<&'a String>) {
+            if x.is_none() {
+                return;
+            }
+            inorder(x.unwrap().left.as_ref(), queue);
+            queue.push(&x.unwrap().key);
+            inorder(x.unwrap().right.as_ref(), queue);
+        };
+        inorder(self.root.as_ref(), &mut queue);
+        queue.into_iter()
     }
+
     pub fn put(&mut self, key: String, val: i32) {
         match self.root {
             None => {
@@ -74,7 +82,7 @@ impl BST {
     }
 
     pub fn delete_max(&mut self) {
-        self.root = self.root.clone().unwrap().delete_max()
+        self.root = Node::delete_max(self.root.take()).0;
     }
 
     pub fn print(&self) {

@@ -73,6 +73,10 @@ impl BST {
         self.root = self.root.clone().unwrap().delete_min()
     }
 
+    pub fn delete_max(&mut self) {
+        self.root = self.root.clone().unwrap().delete_max()
+    }
+
     pub fn print(&self) {
         Node::print(self.root.clone())
     }

@@ -214,6 +214,17 @@ impl Node {
         }
     }
 
+    pub fn delete_max(&mut self) -> Child {
+        match self.right.clone() {
+            None => self.left.clone(),
+            Some(_) => {
+                self.right = self.right.clone().unwrap().delete_max();
+                self.n = Node::size(self.left.clone()) + Node::size(self.right.clone()) + 1;
+                return Some(Box::from(self.clone()));
+            }
+        }
+    }
+
     pub fn print(x: Child) {
         if x == None {
             return;

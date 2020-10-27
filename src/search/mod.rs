@@ -23,3 +23,25 @@ pub trait ST<K, V> {
 
     fn size(&self) -> usize;
 }
+
+pub trait OrderedST<K, V> {
+    fn min(&self) -> Option<&K>;
+
+    fn max(&self) -> Option<&K>;
+
+    fn floor(&self, key: &K) -> Option<&K>;
+
+    fn ceiling(&self, key: &K) -> Option<&K>;
+
+    fn rank(&self, key: &K) -> usize;
+
+    fn select(&self, k: usize) -> Option<&K>;
+
+    fn delete_min(&mut self);
+
+    fn delete_max(&mut self);
+
+    fn size_of_key_range(&self, lo: &K, hi: &K) -> usize {
+        self.rank(hi) - self.rank(lo)
+    }
+}

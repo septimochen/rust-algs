@@ -80,7 +80,6 @@ where
                                 st.put(word_str.to_string(), x + 1);
                             }
                         }
-                        // println!("{:?}", st);
                     }
                 }
             }

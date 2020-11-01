@@ -71,7 +71,6 @@ where
                     if word_str.len() < minlen as usize {
                         continue;
                     } else {
-                        // println!("{}", word);
                         match st.get(word.to_string()) {
                             None => {
                                 st.put(word_str, 1);

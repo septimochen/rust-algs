@@ -113,7 +113,6 @@ where
                     if word_str.len() < minlen as usize {
                         continue;
                     } else {
-                        // println!("{}", word);
                         match st.get(word.to_string()) {
                             None => {
                                 st.put(word_str, 1);
@@ -127,7 +126,6 @@ where
             }
         }
     }
-    // println!("{:?} with size {}", st.get("the".to_owned()), st.size());
     let mut max_str = String::from("");
     st.put(max_str.clone(), 0);
     for key in st.keys() {

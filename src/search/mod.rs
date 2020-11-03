@@ -5,6 +5,7 @@ pub mod frequency_counter;
 pub mod node;
 pub mod binary_search_st;
 pub mod bst;
+pub mod red_black_tree;
 
 pub trait ST<K, V> {
     fn new() -> Self;

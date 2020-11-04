@@ -1,4 +1,5 @@
-pub fn sort<T: Ord>(arr: &mut [T]) -> &[T] {
+#[allow(dead_code)]
+pub fn insertion_sort<T: Ord>(arr: &mut [T]) -> &[T] {
     let n = arr.len();
     for i in 1..n {
         let mut j = i;
@@ -12,8 +13,9 @@ pub fn sort<T: Ord>(arr: &mut [T]) -> &[T] {
     arr
 }
 
-pub fn run() {
+#[test]
+pub fn insertion_run() {
     let mut a = [1, 2, 3, 4, -1, 3, 2, 1];
-    let b = sort(&mut a);
+    let b = insertion_sort(&mut a);
     println!("{:?}", b)
 }

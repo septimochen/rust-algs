@@ -21,7 +21,6 @@ impl BinarySearchST {
     }
 
     pub fn rank(&self, key: String) -> usize {
-        // println!("{}", key);
         if self.n == 0 {
             return 0;
         }

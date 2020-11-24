@@ -31,4 +31,9 @@ impl<K, V> Node<K, V> {
             color: color,
         }
     }
+
+    #[inline]
+    pub fn is_red(&self) -> bool {
+        self.color == Red
+    }
 }

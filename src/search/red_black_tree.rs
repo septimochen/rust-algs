@@ -60,4 +60,16 @@ impl<K, V> Node<K, V> {
         let old_self = mem::replace(self, *x.unwrap());
         self.left = Some(Box::new(old_self));
     }
+
+
+    /// Right rotation. Orient a left-leaning red link to (temporarily) lean right
+    fn rotate_right(&mut self) {
+        assert!(self.left.as_ref().map_or(false, |x| x.is_red()));
+        let mut x = self.left.take();
+        self.left = x.as_mut().unwrap().right.take();
+        x.as_mut().unwrap().color = self.color;
+        self.color = Red;
+        let old_self = mem::replace(self, *x.unwrap());
+        self.right = Some(Box::new(old_self));
+    }
 }

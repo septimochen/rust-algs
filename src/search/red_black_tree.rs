@@ -1,15 +1,14 @@
-use std::iter;
-use std::fmt;
-use std::mem;
-use std::cmp::Ordering;
-use super::{ST, OrderedST};
 use self::Color::*;
-
+use super::{OrderedST, ST};
+use std::cmp::Ordering;
+use std::fmt;
+use std::iter;
+use std::mem;
 
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Color {
     Red,
-    Black
+    Black,
 }
 
 pub struct Node<K, V> {
@@ -35,5 +34,15 @@ impl<K, V> Node<K, V> {
     #[inline]
     pub fn is_red(&self) -> bool {
         self.color == Red
+    }
+
+    fn depth(&self) -> usize {
+        let lsz = self.left.as_ref().map_or(0, |n| n.depth());
+        let rsz = self.right.as_ref().map_or(0, |n| n.depth());
+        if rsz > lsz {
+            rsz + 1
+        } else {
+            lsz + 1
+        }
     }
 }

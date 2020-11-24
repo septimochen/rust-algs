@@ -20,3 +20,15 @@ pub struct Node<K, V> {
     pub color: Color,
 }
 
+impl<K, V> Node<K, V> {
+    #[inline]
+    pub fn new(key: K, val: V, color: Color) -> Node<K, V> {
+        Node {
+            key: key,
+            val: val,
+            left: None,
+            right: None,
+            color: color,
+        }
+    }
+}

@@ -45,4 +45,8 @@ impl<K, V> Node<K, V> {
             lsz + 1
         }
     }
+
+    fn size(&self) -> usize {
+        1 + self.left.as_ref().map_or(0, |n| n.size()) + self.right.as_ref().map_or(0, |n| n.size())
+    }
 }

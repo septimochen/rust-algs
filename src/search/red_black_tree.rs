@@ -32,7 +32,7 @@ impl<K, V> Node<K, V> {
     }
 
     #[inline]
-    pub fn is_red(&self) -> bool {
+    fn is_red(&self) -> bool {
         self.color == Red
     }
 
@@ -48,5 +48,16 @@ impl<K, V> Node<K, V> {
 
     fn size(&self) -> usize {
         1 + self.left.as_ref().map_or(0, |n| n.size()) + self.right.as_ref().map_or(0, |n| n.size())
+    }
+
+    /// Left rotation. Orient a (temporarily) right-leaning red link to lean left.
+    fn rotate_left(&mut self) {
+        assert!(self.right.as_ref().map_or(false, |x| x.is_red()));
+        let mut x = self.right.take();
+        self.right = x.as_mut().unwrap().left.take();
+        x.as_mut().unwrap().color = self.color;
+        self.color = Red;
+        let old_self = mem::replace(self, *x.unwrap());
+        self.left = Some(Box::new(old_self));
     }
 }

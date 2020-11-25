@@ -52,7 +52,8 @@ impl<K, V> Node<K, V> {
 
     /// Left rotation. Orient a (temporarily) right-leaning red link to lean left.
     fn rotate_left(&mut self) {
-        assert!(self.right.as_ref().map_or(false, |x| x.is_red()));
+        // assert!(self.right.as_ref().map_or(false, |x| x.is_red()));
+        assert!(is_red(&self.right));
         let mut x = self.right.take();
         self.right = x.as_mut().unwrap().left.take();
         x.as_mut().unwrap().color = self.color;
@@ -64,7 +65,8 @@ impl<K, V> Node<K, V> {
 
     /// Right rotation. Orient a left-leaning red link to (temporarily) lean right
     fn rotate_right(&mut self) {
-        assert!(self.left.as_ref().map_or(false, |x| x.is_red()));
+        // assert!(self.left.as_ref().map_or(false, |x| x.is_red()));
+        assert!(is_red(&self.left));
         let mut x = self.left.take();
         self.left = x.as_mut().unwrap().right.take();
         x.as_mut().unwrap().color = self.color;
@@ -75,10 +77,20 @@ impl<K, V> Node<K, V> {
 
     fn flip_color(&mut self) {
         assert!(!self.is_red());
-        assert!(Node::is_red(&self.left.as_ref().unwrap()));
-        assert!(self.right.as_ref().unwrap().is_red());
+        // assert!(Node::is_red(&self.left.as_ref().unwrap()));
+        // assert!(self.right.as_ref().unwrap().is_red());
+        assert!(is_red(&self.left));
+        assert!(is_red(&self.right));
         self.color = Red;
         self.left.as_mut().map(|n| n.color = Black);
         self.right.as_mut().map(|n| n.color = Black);
+    }
+}
+
+fn is_red<K, V>(node: &Option<Box<Node<K, V>>>) -> bool {
+    if node.as_ref().is_none() {
+        false
+    } else {
+        node.as_ref().unwrap().color == Red
     }
 }

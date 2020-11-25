@@ -62,7 +62,6 @@ impl<K, V> Node<K, V> {
         self.left = Some(Box::new(old_self));
     }
 
-
     /// Right rotation. Orient a left-leaning red link to (temporarily) lean right
     fn rotate_right(&mut self) {
         // assert!(self.left.as_ref().map_or(false, |x| x.is_red()));

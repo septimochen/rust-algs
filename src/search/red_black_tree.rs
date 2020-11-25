@@ -77,6 +77,8 @@ impl<K, V> Node<K, V> {
         assert!(!self.is_red());
         assert!(Node::is_red(&self.left.as_ref().unwrap()));
         assert!(self.right.as_ref().unwrap().is_red());
-        
+        self.color = Red;
+        self.left.as_mut().map(|n| n.color = Black);
+        self.right.as_mut().map(|n| n.color = Black);
     }
 }

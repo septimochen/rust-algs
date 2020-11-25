@@ -72,4 +72,11 @@ impl<K, V> Node<K, V> {
         let old_self = mem::replace(self, *x.unwrap());
         self.right = Some(Box::new(old_self));
     }
+
+    fn flip_color(&mut self) {
+        assert!(!self.is_red());
+        assert!(Node::is_red(&self.left.as_ref().unwrap()));
+        assert!(self.right.as_ref().unwrap().is_red());
+        
+    }
 }

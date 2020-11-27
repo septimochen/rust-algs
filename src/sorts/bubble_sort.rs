@@ -9,7 +9,8 @@ pub fn bubble_sort<T: Ord>(arr: &mut[T]) -> &[T]{
     arr
 }
 
-pub fn run() {
+#[test]
+pub fn bubble_run() {
     let mut a = [1, 2, 3, 4, -1, 3, 2, 1];
     let b = bubble_sort(&mut a);
     println!("{:?}", b)

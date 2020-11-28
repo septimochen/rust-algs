@@ -1,6 +1,5 @@
 use std::cmp::Ordering;
 
-
 #[derive(Eq)]
 pub struct Person {
     pub(crate) name: String,
@@ -14,7 +13,7 @@ impl Ord for Person {
 }
 
 impl PartialOrd for Person {
-    fn partial_cmp(&self, other:&Self) -> Option<Ordering> {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         Some(self.cmp(other))
     }
 }
@@ -24,4 +23,3 @@ impl PartialEq for Person {
         self.info == other.info && self.name == other.name
     }
 }
-

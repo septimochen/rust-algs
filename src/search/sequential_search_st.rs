@@ -37,7 +37,6 @@ impl SequentialSearchST {
             size: 1,
         }
     }
-
 }
 
 impl ST for SequentialSearchST {
@@ -45,7 +44,7 @@ impl ST for SequentialSearchST {
         let curr = self.first.as_ref();
         while curr.is_some() {
             if curr.as_ref().unwrap().key == key {
-                return Some(curr.as_ref().unwrap().val.get())
+                return Some(curr.as_ref().unwrap().val.get());
             }
         }
         None
@@ -62,7 +61,11 @@ impl ST for SequentialSearchST {
             }
             curr = curr.unwrap().next.as_mut();
         }
-        self.first = Some(Box::new(ListNode::new(new_key.borrow().to_string(), val, self.first.clone())));
+        self.first = Some(Box::new(ListNode::new(
+            new_key.borrow().to_string(),
+            val,
+            self.first.clone(),
+        )));
     }
 }
 

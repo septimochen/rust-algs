@@ -1,8 +1,8 @@
 use self::Color::*;
-use super::{OrderedST, ST};
+// use super::{OrderedST, ST};
 use std::cmp::Ordering;
-use std::fmt;
-use std::iter;
+// use std::fmt;
+// use std::iter;
 use std::mem;
 
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
@@ -19,6 +19,7 @@ pub struct Node<K, V> {
     pub color: Color,
 }
 
+#[allow(dead_code)]
 impl<K, V> Node<K, V> {
     #[inline]
     pub fn new(key: K, val: V, color: Color) -> Node<K, V> {
@@ -94,10 +95,38 @@ fn is_red<K, V>(node: &Option<Box<Node<K, V>>>) -> bool {
     }
 }
 
-fn put<K: PartialOrd, V>(x: Option<Box<Node<K, V>>>, key: K, val: V) -> Option<Box<Node<K, V>>> {
+fn _put<K: PartialOrd, V>(x: Option<Box<Node<K, V>>>, key: K, val: V) -> Option<Box<Node<K, V>>> {
     let mut x = x;
     if x.is_none() {
         return Some(Box::new(Node::new(key, val, Red)));
     }
+    let cmp = key.partial_cmp(&x.as_ref().unwrap().key).unwrap();
+    match cmp {
+        Ordering::Less => {
+            let left = x.as_mut().unwrap().left.take();
+            x.as_mut().unwrap().left = _put(left, key, val);
+        }
+        Ordering::Greater => {
+            let right = x.as_mut().unwrap().right.take();
+            x.as_mut().unwrap().right = _put(right, key, val);
+        }
+        Ordering::Equal => {
+            x.as_mut().unwrap().val = val;
+        }
+    }
+
+    if is_red(&x.as_ref().unwrap().right) && !is_red(&x.as_ref().unwrap().left) {
+        x.as_mut().unwrap().rotate_left();
+    }
+
+    if is_red(&x.as_ref().unwrap().left) && is_red(&x.as_ref().unwrap().left.as_ref().unwrap().left)
+    {
+        x.as_mut().unwrap().rotate_right();
+    }
+
+    if is_red(&x.as_ref().unwrap().left) && is_red(&x.as_ref().unwrap().right) {
+        x.as_mut().unwrap().flip_color();
+    }
+
     x
 }

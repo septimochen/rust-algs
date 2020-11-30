@@ -53,7 +53,6 @@ impl<K, V> Node<K, V> {
 
     /// Left rotation. Orient a (temporarily) right-leaning red link to lean left.
     fn rotate_left(&mut self) {
-        // assert!(self.right.as_ref().map_or(false, |x| x.is_red()));
         assert!(is_red(&self.right));
         let mut x = self.right.take();
         self.right = x.as_mut().unwrap().left.take();
@@ -65,7 +64,6 @@ impl<K, V> Node<K, V> {
 
     /// Right rotation. Orient a left-leaning red link to (temporarily) lean right
     fn rotate_right(&mut self) {
-        // assert!(self.left.as_ref().map_or(false, |x| x.is_red()));
         assert!(is_red(&self.left));
         let mut x = self.left.take();
         self.left = x.as_mut().unwrap().right.take();
@@ -77,8 +75,6 @@ impl<K, V> Node<K, V> {
 
     fn flip_color(&mut self) {
         assert!(!self.is_red());
-        // assert!(Node::is_red(&self.left.as_ref().unwrap()));
-        // assert!(self.right.as_ref().unwrap().is_red());
         assert!(is_red(&self.left));
         assert!(is_red(&self.right));
         self.color = Red;
@@ -131,10 +127,12 @@ fn _put<K: PartialOrd, V>(x: Option<Box<Node<K, V>>>, key: K, val: V) -> Option<
     x
 }
 
+#[allow(dead_code)]
 pub struct RedBlackBST<K, V> {
     pub root: Option<Box<Node<K, V>>>,
 }
 
+#[allow(dead_code)]
 impl<K: PartialOrd, V> RedBlackBST<K, V> {
     pub fn depth(&self) -> usize {
         match self.root {

@@ -134,3 +134,12 @@ fn _put<K: PartialOrd, V>(x: Option<Box<Node<K, V>>>, key: K, val: V) -> Option<
 pub struct RedBlackBST<K, V> {
     pub root: Option<Box<Node<K, V>>>,
 }
+
+impl<K: PartialOrd, V> RedBlackBST<K, V> {
+    pub fn depth(&self) -> usize {
+        match self.root {
+            None => 0,
+            Some(ref x) => x.depth(),
+        }
+    }
+}

@@ -93,3 +93,7 @@ fn is_red<K, V>(node: &Option<Box<Node<K, V>>>) -> bool {
         node.as_ref().unwrap().color == Red
     }
 }
+
+fn put<K: PartialOrd, V>(x: Option<Box<Node<K, V>>>, key: K, val: V) -> Option<Box<Node<K, V>>> {
+    x
+}

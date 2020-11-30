@@ -95,5 +95,9 @@ fn is_red<K, V>(node: &Option<Box<Node<K, V>>>) -> bool {
 }
 
 fn put<K: PartialOrd, V>(x: Option<Box<Node<K, V>>>, key: K, val: V) -> Option<Box<Node<K, V>>> {
+    let mut x = x;
+    if x.is_none() {
+        return Some(Box::new(Node::new(key, val, Red)));
+    }
     x
 }

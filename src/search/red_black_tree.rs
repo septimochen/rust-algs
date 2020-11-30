@@ -130,3 +130,7 @@ fn _put<K: PartialOrd, V>(x: Option<Box<Node<K, V>>>, key: K, val: V) -> Option<
 
     x
 }
+
+pub struct RedBlackBST<K, V> {
+    pub root: Option<Box<Node<K, V>>>,
+}

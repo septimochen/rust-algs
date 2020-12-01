@@ -12,7 +12,7 @@ pub trait ST<K, V> {
 
     fn put(&mut self, key: K, val: V);
 
-    fn get(&self, key: &K) -> Option<V>;
+    fn get(&self, key: &K) -> Option<&V>;
 
     fn delete(&mut self, key: &K);
 

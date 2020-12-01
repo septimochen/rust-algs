@@ -150,7 +150,7 @@ impl<K: PartialOrd, V> ST<K, V> for RedBlackBST<K, V> {
         self.root.as_mut().unwrap().color = Black;
     }
 
-    fn get(&self, key: &K) -> Option<V> {
+    fn get(&self, key: &K) -> Option<&V> {
         let mut x = self.root.as_ref();
         while x.is_some() {
             match key.partial_cmp(&x.unwrap().key).unwrap() {
@@ -160,9 +160,23 @@ impl<K: PartialOrd, V> ST<K, V> for RedBlackBST<K, V> {
                 Ordering::Greater => {
                     x = x.unwrap().right.as_ref();
                 }
-                Ordering::Equal => return Some(x.unwrap().val),
+                Ordering::Equal => return Some(&x.unwrap().val),
             }
         }
         None
+    }
+
+    fn delete(&mut self, key: &K) {}
+
+    fn is_empty(&self) -> bool {
+        self.root.is_none()
+    }
+
+    fn size(&self) -> usize {
+        if self.is_empty() {
+            0
+        } else {
+            self.root.as_ref().unwrap().size()
+        }
     }
 }

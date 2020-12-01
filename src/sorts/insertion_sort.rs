@@ -15,27 +15,50 @@ pub fn insertion_sort<T: Ord>(arr: &mut [T]) -> &[T] {
     arr
 }
 
-pub struct InsertionSort;
+pub struct InsertionSort {
+    smart: bool,
+}
 
 impl<T> Sorter<T> for InsertionSort {
     fn sort(&self, slice: &mut [T])
     where
         T: Ord,
     {
-        for unsorted in 1..slice.len() {
-            let mut i = unsorted;
-            while i > 0 && slice[i - 1] > slice[i] {
-                slice.swap(i - 1, i);
-                i -= 1;
+        let smart = self.smart;
+        {
+            for unsorted in 1..slice.len() {
+                if !smart {
+                    let mut i = unsorted;
+                    while i > 0 && slice[i - 1] > slice[i] {
+                        slice.swap(i - 1, i);
+                        i -= 1;
+                    }
+                } else {
+                    for unsorted in 1..slice.len() {
+                        let i = slice[..unsorted]
+                            .binary_search(&slice[unsorted])
+                            .unwrap_or_else(|x| x);
+                        &slice[i..=unsorted].rotate_right(1);
+                    }
+                }
             }
         }
     }
 }
 #[test]
-pub fn insertion_run() {
+pub fn insertion_dumb() {
     let mut a = [1, 2, 3, 4, -1, 3, 2, 1];
     let b = insertion_sort(&mut a);
     println!("{:?}", b);
-    InsertionSort.sort(&mut a);
+    InsertionSort { smart: false }.sort(&mut a);
+    assert_eq!(a, [-1, 1, 1, 2, 2, 3, 3, 4]);
+}
+
+#[test]
+pub fn insertion_smart() {
+    let mut a = [1, 2, 3, 4, -1, 3, 2, 1];
+    let b = insertion_sort(&mut a);
+    println!("{:?}", b);
+    InsertionSort { smart: true }.sort(&mut a);
     assert_eq!(a, [-1, 1, 1, 2, 2, 3, 3, 4]);
 }

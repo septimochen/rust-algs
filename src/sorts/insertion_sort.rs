@@ -34,12 +34,10 @@ impl<T> Sorter<T> for InsertionSort {
                         i -= 1;
                     }
                 } else {
-                    for unsorted in 1..slice.len() {
-                        let i = slice[..unsorted]
-                            .binary_search(&slice[unsorted])
-                            .unwrap_or_else(|x| x);
-                        &slice[i..=unsorted].rotate_right(1);
-                    }
+                    let i = slice[..unsorted]
+                        .binary_search(&slice[unsorted])
+                        .unwrap_or_else(|x| x);
+                    &slice[i..=unsorted].rotate_right(1);
                 }
             }
         }

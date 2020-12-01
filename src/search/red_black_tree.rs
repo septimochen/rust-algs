@@ -91,7 +91,7 @@ fn is_red<K, V>(node: &Option<Box<Node<K, V>>>) -> bool {
     }
 }
 
-fn _put<K: PartialOrd, V>(x: Option<Box<Node<K, V>>>, key: K, val: V) -> Option<Box<Node<K, V>>> {
+fn put<K: PartialOrd, V>(x: Option<Box<Node<K, V>>>, key: K, val: V) -> Option<Box<Node<K, V>>> {
     let mut x = x;
     if x.is_none() {
         return Some(Box::new(Node::new(key, val, Red)));
@@ -100,11 +100,11 @@ fn _put<K: PartialOrd, V>(x: Option<Box<Node<K, V>>>, key: K, val: V) -> Option<
     match cmp {
         Ordering::Less => {
             let left = x.as_mut().unwrap().left.take();
-            x.as_mut().unwrap().left = _put(left, key, val);
+            x.as_mut().unwrap().left = put(left, key, val);
         }
         Ordering::Greater => {
             let right = x.as_mut().unwrap().right.take();
-            x.as_mut().unwrap().right = _put(right, key, val);
+            x.as_mut().unwrap().right = put(right, key, val);
         }
         Ordering::Equal => {
             x.as_mut().unwrap().val = val;
@@ -118,12 +118,10 @@ fn _put<K: PartialOrd, V>(x: Option<Box<Node<K, V>>>, key: K, val: V) -> Option<
     if is_red(&x.as_ref().unwrap().left) && is_red(&x.as_ref().unwrap().left.as_ref().unwrap().left)
     {
         x.as_mut().unwrap().rotate_right();
-
-
+    }
     if is_red(&x.as_ref().unwrap().left) && is_red(&x.as_ref().unwrap().right) {
         x.as_mut().unwrap().flip_color();
     }
-
     x
 }
 
@@ -144,11 +142,11 @@ impl<K: PartialOrd, V> RedBlackBST<K, V> {
 
 impl<K: PartialOrd, V> ST<K, V> for RedBlackBST<K, V> {
     fn new() -> RedBlackBST<K, V> {
-        RedBlackBST { root: None}
+        RedBlackBST { root: None }
     }
 
     fn put(&mut self, key: K, val: V) {
-        self.root = _put(self.root.take(), key, val);
+        self.root = put(self.root.take(), key, val);
         self.root.as_mut().unwrap().color = Black;
     }
 }

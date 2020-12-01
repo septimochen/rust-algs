@@ -1,5 +1,5 @@
 use self::Color::*;
-// use super::{OrderedST, ST};
+use super::{OrderedST, ST};
 use std::cmp::Ordering;
 // use std::fmt;
 // use std::iter;
@@ -139,5 +139,12 @@ impl<K: PartialOrd, V> RedBlackBST<K, V> {
             None => 0,
             Some(ref x) => x.depth(),
         }
+    }
+}
+
+impl<K: PartialOrd, V> ST<K, V> for RedBlackBST<K, V> {
+    fn put(&mut self, key: K, val: V) {
+        self.root = _put(self.root, key, val);
+        self.root.as_mut().unwrap().color = Black;
     }
 }

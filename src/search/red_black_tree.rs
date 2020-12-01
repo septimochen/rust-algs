@@ -149,4 +149,20 @@ impl<K: PartialOrd, V> ST<K, V> for RedBlackBST<K, V> {
         self.root = put(self.root.take(), key, val);
         self.root.as_mut().unwrap().color = Black;
     }
+
+    fn get(&self, key: &K) -> Option<V> {
+        let mut x = self.root.as_ref();
+        while x.is_some() {
+            match key.partial_cmp(&x.unwrap().key).unwrap() {
+                Ordering::Less => {
+                    x = x.unwrap().left.as_ref();
+                }
+                Ordering::Greater => {
+                    x = x.unwrap().right.as_ref();
+                }
+                Ordering::Equal => return Some(x.unwrap().val),
+            }
+        }
+        None
+    }
 }

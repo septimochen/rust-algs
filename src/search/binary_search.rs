@@ -17,7 +17,7 @@ pub fn binary_search<T: PartialOrd + PartialEq>(item: &T, arr: &[T]) -> i32 {
 }
 
 #[test]
-pub fn run() {
+pub fn binary_search_run() {
     let index = binary_search(&"Rust", &vec!["Python", "Php", "Java", "C", "C++", "Rust"]);
     println!("Position: {}", index);
 

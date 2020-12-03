@@ -25,20 +25,19 @@ impl<T> Sorter<T> for InsertionSort {
         T: Ord,
     {
         let smart = self.smart;
-        {
-            for unsorted in 1..slice.len() {
-                if !smart {
-                    let mut i = unsorted;
-                    while i > 0 && slice[i - 1] > slice[i] {
-                        slice.swap(i - 1, i);
-                        i -= 1;
-                    }
-                } else {
-                    let i = slice[..unsorted]
-                        .binary_search(&slice[unsorted])
-                        .unwrap_or_else(|x| x);
-                    &slice[i..=unsorted].rotate_right(1);
+
+        for unsorted in 1..slice.len() {
+            if !smart {
+                let mut i = unsorted;
+                while i > 0 && slice[i - 1] > slice[i] {
+                    slice.swap(i - 1, i);
+                    i -= 1;
                 }
+            } else {
+                let i = slice[..unsorted]
+                    .binary_search(&slice[unsorted])
+                    .unwrap_or_else(|x| x);
+                &slice[i..=unsorted].rotate_right(1);
             }
         }
     }

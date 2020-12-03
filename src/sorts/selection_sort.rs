@@ -14,6 +14,15 @@ impl<T> Sorter<T> for SelectionSort {
                     smallest = i;
                 }
             }
+
+            let smallest_v2 = slice[unsorted..]
+                .iter()
+                .enumerate()
+                .min_by_key(|&(_, v)| v)
+                .map(|(x, _)| x + unsorted)
+                .expect("the slice is empty");
+
+            assert_eq!(smallest, smallest_v2);
             slice.swap(unsorted, smallest);
         }
     }

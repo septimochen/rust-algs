@@ -50,6 +50,8 @@ impl Fibonacci {
             return dp[n as usize];
         }
     }
+
+    pub fn fib_final() {}
 }
 
 #[test]

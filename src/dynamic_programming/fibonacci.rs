@@ -79,4 +79,6 @@ fn fib_test() {
     assert_eq!(z, 13);
     let a = Fibonacci.fib_with_dp(7);
     assert_eq!(a, z);
+    let b = Fibonacci.fib_final(7);
+    assert_eq!(b, z);
 }

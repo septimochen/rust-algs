@@ -34,6 +34,22 @@ impl Fibonacci {
             _ => memo[n],
         }
     }
+
+    pub fn fib_with_dp(&self, n: i32) -> i32 {
+        if n <= 0 {
+            return 0;
+        } else if n <= 2 {
+            return 1;
+        } else {
+            let mut dp = vec![0; (n + 1) as usize];
+            dp[1] = 1;
+            dp[2] = 1;
+            for i in 3..dp.len() {
+                dp[i] = dp[i - 1] + dp[i - 2]
+            }
+            return dp[n as usize];
+        }
+    }
 }
 
 #[test]
@@ -44,4 +60,6 @@ fn fib_test() {
     assert_eq!(y, x as i32);
     let z = Fibonacci.fib(7);
     assert_eq!(z, 13);
+    let a = Fibonacci.fib_with_dp(7);
+    assert_eq!(a, z);
 }

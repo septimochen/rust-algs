@@ -18,18 +18,18 @@ fn helper(memo: &mut Vec<usize>, n: usize) -> usize {
     //base case
     if n <= 2 {
         return 1;
-    } else {
-        if memo[n] != 0 {
-            return memo[n];
-        } else {
+    }
+    match memo[n] {
+        0 => {
             memo[n] = helper(memo, n - 1) + helper(memo, n - 2);
-            return memo[n];
+            memo[n]
         }
+        _ => memo[n],
     }
 }
 
 #[test]
 fn fib_test() {
-    let x = fib_with_helper(4);
-    assert_eq!(x, 3);
+    let x = fib_with_helper(6);
+    assert_eq!(x, 8);
 }

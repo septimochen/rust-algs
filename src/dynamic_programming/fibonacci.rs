@@ -51,7 +51,22 @@ impl Fibonacci {
         }
     }
 
-    pub fn fib_final() {}
+    pub fn fib_final(&self, n: i32) -> i32 {
+        if n <= 0 {
+            return 0;
+        } else if n <= 2 {
+            return 1;
+        } else {
+            let mut prev = 1;
+            let mut curr = 1;
+            for _ in 3..(n + 1) {
+                let sum = prev + curr;
+                prev = curr;
+                curr = sum;
+            }
+            curr
+        }
+    }
 }
 
 #[test]

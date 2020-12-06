@@ -55,3 +55,10 @@ impl<T> Sorter<T> for QuickSort {
         quick_sort(slice)
     }
 }
+
+#[test]
+fn quick_it_works() {
+    let mut things = vec![4, 2, 5, 3, 1];
+    QuickSort.sort(&mut things);
+    assert_eq!(things, &[1, 2, 3, 4, 5]);
+}

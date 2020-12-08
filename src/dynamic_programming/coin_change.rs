@@ -31,7 +31,6 @@ impl CoinChange {
 
     pub fn coin_change_with_memo(&self, coins: Vec<i32>, amount: i32) -> i32 {
         let mut memo = HashMap::new();
-        
         fn dp(n: i32, coins: &Vec<i32>, amount: &i32, mut memo: &mut HashMap<i32, i32>) -> i32 {
             if let Some(val) = memo.get(amount) {
                 return *val;
@@ -63,21 +62,26 @@ impl CoinChange {
 
     pub fn coin_change_final(&self, coins: Vec<i32>, amount: i32) -> i32 {
         if amount < 0 {
-            return -1
+            return -1;
         }
 
-        let n = amount as usize;
-        let mut dp = vec![n + 1; n + 1];
-        dp[0] = 0;
-        for i in 1..dp.len() {
+        let mut dp = HashMap::new();
+        dp.insert(0 as i32, 0);
+        for i in 1..(amount + 1) {
             for coin in &coins {
                 if i as i32 - *coin < 0 {
                     continue;
                 }
-                dp[i] = min(dp[i], 1 + dp[(i - *coin as usize)]);
+                dp.insert(
+                    i as i32,
+                    min(
+                        *dp.get(&i).unwrap_or(&(amount + 1)),
+                        1 + *dp.get(&(i as i32 - *coin)).unwrap(),
+                    ),
+                );
             }
         }
-        return dp[n] as i32;
+        return *dp.get(&amount).unwrap();
     }
 }
 

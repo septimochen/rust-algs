@@ -1,5 +1,6 @@
 use self::Color::*;
-use super::{OrderedST, ST};
+// use super::{OrderedST, ST};
+use super::ST;
 use std::cmp::Ordering;
 // use std::fmt;
 // use std::iter;
@@ -166,7 +167,7 @@ impl<K: PartialOrd, V> ST<K, V> for RedBlackBST<K, V> {
         None
     }
 
-    fn delete(&mut self, key: &K) {}
+    fn delete(&mut self, _key: &K) {}
 
     fn is_empty(&self) -> bool {
         self.root.is_none()

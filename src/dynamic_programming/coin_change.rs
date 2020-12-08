@@ -36,5 +36,7 @@ mod coin_tests {
     fn coin_works_1() {
         let x = CoinChange.coin_change(vec![1, 2, 5], 11);
         assert_eq!(x, 3);
+        let y = CoinChange.coin_change(vec![1, 2, 5], 18);
+        assert_eq!(y, 5);
     }
 }

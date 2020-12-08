@@ -60,6 +60,25 @@ impl CoinChange {
         }
         dp(amount, &coins, &amount, &mut memo)
     }
+
+    pub fn coin_change_final(&self, coins: Vec<i32>, amount: i32) -> i32 {
+        if amount < 0 {
+            return -1
+        }
+
+        let n = amount as usize;
+        let mut dp = vec![n + 1; n + 1];
+        dp[0] = 0;
+        for i in 1..dp.len() {
+            for coin in &coins {
+                if i as i32 - *coin < 0 {
+                    continue;
+                }
+                dp[i] = min(dp[i], 1 + dp[(i - *coin as usize)]);
+            }
+        }
+        return dp[n] as i32;
+    }
 }
 
 #[cfg(test)]
@@ -78,6 +97,14 @@ mod coin_tests {
         let x = CoinChange.coin_change_with_memo(vec![1, 2, 5], 11);
         assert_eq!(x, 3);
         let y = CoinChange.coin_change_with_memo(vec![1, 2, 5], 18);
+        assert_eq!(y, 5);
+    }
+
+    #[test]
+    fn coin_works_3() {
+        let x = CoinChange.coin_change_final(vec![1, 2, 5], 11);
+        assert_eq!(x, 3);
+        let y = CoinChange.coin_change_final(vec![1, 2, 5], 18);
         assert_eq!(y, 5);
     }
 }

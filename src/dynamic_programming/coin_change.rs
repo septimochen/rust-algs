@@ -76,12 +76,18 @@ impl CoinChange {
                     i as i32,
                     min(
                         *dp.get(&i).unwrap_or(&(amount + 1)),
-                        1 + *dp.get(&(i as i32 - *coin)).unwrap(),
+                        1 + *dp.get(&(i as i32 - *coin)).unwrap_or(&(amount + 1)),
                     ),
                 );
             }
         }
-        return *dp.get(&amount).unwrap();
+        let res = *dp.get(&amount).unwrap_or(&(amount + 1));
+        match res.partial_cmp(&(amount + 1)).unwrap() {
+            Ordering::Equal => {
+                return -1
+            },
+            _ => return res
+        }
     }
 }
 
@@ -90,25 +96,31 @@ mod coin_tests {
     use super::*;
     #[test]
     fn coin_works_1() {
-        let x = CoinChange.coin_change(vec![1, 2, 5], 11);
-        assert_eq!(x, 3);
+        let x = CoinChange.coin_change(vec![2], 3);
+        assert_eq!(x, -1);
         let y = CoinChange.coin_change(vec![1, 2, 5], 18);
         assert_eq!(y, 5);
+        let z = CoinChange.coin_change(vec![1, 2, 5], 100);
+        assert_eq!(z, 20);
     }
 
     #[test]
     fn coin_works_2() {
-        let x = CoinChange.coin_change_with_memo(vec![1, 2, 5], 11);
-        assert_eq!(x, 3);
-        let y = CoinChange.coin_change_with_memo(vec![1, 2, 5], 18);
-        assert_eq!(y, 5);
+        let x = CoinChange.coin_change_with_memo(vec![2], 3);
+        assert_eq!(x, -1);
+        let y = CoinChange.coin_change_with_memo(vec![2], 1);
+        assert_eq!(y, -1);
+        let z = CoinChange.coin_change_with_memo(vec![1, 2, 5], 100);
+        assert_eq!(z, 20);
     }
 
     #[test]
     fn coin_works_3() {
-        let x = CoinChange.coin_change_final(vec![1, 2, 5], 11);
-        assert_eq!(x, 3);
-        let y = CoinChange.coin_change_final(vec![1, 2, 5], 103);
-        assert_eq!(y, 22);
+        let x = CoinChange.coin_change_final(vec![2], 3);
+        assert_eq!(x, -1);
+        let y = CoinChange.coin_change_final(vec![1, 2, 5], 18);
+        assert_eq!(y, 5);
+        let z = CoinChange.coin_change_final(vec![1, 2, 5], 100);
+        assert_eq!(z, 20);
     }
 }

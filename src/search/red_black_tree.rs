@@ -25,11 +25,11 @@ impl<K, V> Node<K, V> {
     #[inline]
     pub fn new(key: K, val: V, color: Color) -> Node<K, V> {
         Node {
-            key: key,
-            val: val,
+            key,
+            val,
             left: None,
             right: None,
-            color: color,
+            color,
         }
     }
 

@@ -93,8 +93,6 @@ mod coin_tests {
         assert_eq!(x, -1);
         let y = CoinChange.coin_change(vec![1, 2, 5], 18);
         assert_eq!(y, 5);
-        // let z = CoinChange.coin_change(vec![1, 2, 5], 100);
-        // assert_eq!(z, 20);
     }
 
     #[test]
@@ -103,8 +101,6 @@ mod coin_tests {
         assert_eq!(x, -1);
         let y = CoinChange.coin_change_with_memo(vec![2], 1);
         assert_eq!(y, -1);
-        // let z = CoinChange.coin_change_with_memo(vec![1, 2, 5], 100);
-        // assert_eq!(z, 20);
     }
 
     #[test]

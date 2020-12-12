@@ -5,7 +5,6 @@ pub struct CoinChange;
 
 #[allow(dead_code)]
 impl CoinChange {
-
     pub fn coin_change_final(&self, coins: Vec<i32>, amount: i32) -> i32 {
         if amount < 0 {
             return -1;

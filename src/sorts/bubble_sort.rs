@@ -36,7 +36,7 @@ impl<T> Sorter<T> for BubbleSort {
 pub fn bubble_run() {
     let mut a = [1, 2, 3, 4, -1, 3, 2, 1];
     let b = bubble_sort(&mut a);
-    println!("{:?}", b);
+    assert_eq!(b, [-1, 1, 1, 2, 2, 3, 3, 4]);
     BubbleSort.sort(&mut a);
     assert_eq!(a, [-1, 1, 1, 2, 2, 3, 3, 4]);
 }

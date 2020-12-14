@@ -79,7 +79,6 @@ pub fn binary_search_st_test() {
     let mut st2 = BinarySearchST::new();
     println!("{:?}", st2.keys.capacity());
     st2.put("ok".to_owned(), 3);
-    // let v = st2.get(String::from("ok"));
     st2.put("ok".to_owned(), 5);
     st2.put("ok2".to_owned(), 33);
     let v2 = st2.get(String::from("ok2"));

@@ -81,5 +81,4 @@ fn fib_test() {
     assert_eq!(a, z);
     let b = Fibonacci.fib_final(7);
     assert_eq!(b, z);
-    println!("{}", z);
 }

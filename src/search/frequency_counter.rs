@@ -142,7 +142,7 @@ pub fn fq_test_v2() {
     let path = Path::new("data/tale.txt");
     let result = frequency_counter_2(8, &path);
     println!("{:?}", result);
-    assert_eq!(result, ("business".to_owned(), 122))
+    assert_eq!(result, ("business".to_string(), 122))
 }
 
 #[test]
@@ -150,5 +150,5 @@ pub fn fq_test_bst() {
     let path = Path::new("data/tale.txt");
     let result = frequency_counter_bst(8, &path);
     println!("{:?}", result);
-    assert_eq!(result, ("business".to_owned(), 122))
+    assert_eq!(result, ("business".to_string(), 122))
 }

@@ -3,22 +3,23 @@ pub struct Fibonacci;
 
 #[allow(dead_code)]
 impl Fibonacci {
-    pub fn fib(&self, n: i32) -> i32 {
+    pub fn fib(n: i32) -> i32 {
         if n <= 0 {
-            return 0;
+            0
         } else if n <= 2 {
-            return 1;
+            1
         } else {
-            self.fib(n - 1) + self.fib(n - 2)
+            Fibonacci::fib(n - 1) + Fibonacci::fib(n - 2)
         }
     }
 
     pub fn fib_with_helper(&self, n: i32) -> i32 {
         if n <= 0 {
-            return 0;
+            0
+        } else {
+            let mut memo = vec![0; (n + 1) as usize];
+            self.helper(&mut memo, n as usize)
         }
-        let mut memo = vec![0; (n + 1) as usize];
-        return self.helper(&mut memo, n as usize);
     }
 
     fn helper(&self, memo: &mut Vec<i32>, n: usize) -> i32 {
@@ -72,10 +73,10 @@ impl Fibonacci {
 #[test]
 fn fib_test() {
     let x = Fibonacci.fib_with_helper(6);
-    let y = Fibonacci.fib(6);
+    let y = Fibonacci::fib(6);
     assert_eq!(x, 8);
     assert_eq!(y, x as i32);
-    let z = Fibonacci.fib(7);
+    let z = Fibonacci::fib(7);
     assert_eq!(z, 13);
     let a = Fibonacci.fib_with_dp(7);
     assert_eq!(a, z);

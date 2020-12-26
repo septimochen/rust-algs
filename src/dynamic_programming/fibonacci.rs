@@ -36,7 +36,7 @@ impl Fibonacci {
         }
     }
 
-    pub fn fib_with_dp(&self, n: i32) -> i32 {
+    pub fn fib_with_dp(n: i32) -> i32 {
         if n <= 0 {
             return 0;
         } else if n <= 2 {
@@ -52,7 +52,7 @@ impl Fibonacci {
         }
     }
 
-    pub fn fib_final(&self, n: i32) -> i32 {
+    pub fn fib_final(n: i32) -> i32 {
         if n <= 0 {
             return 0;
         } else if n <= 2 {
@@ -78,8 +78,8 @@ fn fib_test() {
     assert_eq!(y, x);
     let z = Fibonacci::fib(7);
     assert_eq!(z, 13);
-    let a = Fibonacci.fib_with_dp(7);
+    let a = Fibonacci::fib_with_dp(7);
     assert_eq!(a, z);
-    let b = Fibonacci.fib_final(7);
+    let b = Fibonacci::fib_final(7);
     assert_eq!(b, z);
 }

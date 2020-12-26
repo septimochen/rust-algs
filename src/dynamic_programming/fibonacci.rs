@@ -13,23 +13,23 @@ impl Fibonacci {
         }
     }
 
-    pub fn fib_with_helper(&self, n: i32) -> i32 {
+    pub fn fib_with_helper(n: i32) -> i32 {
         if n <= 0 {
             0
         } else {
             let mut memo = vec![0; (n + 1) as usize];
-            self.helper(&mut memo, n as usize)
+            Fibonacci::helper(&mut memo, n as usize)
         }
     }
 
-    fn helper(&self, memo: &mut Vec<i32>, n: usize) -> i32 {
+    fn helper(memo: &mut Vec<i32>, n: usize) -> i32 {
         //base case
         if n <= 2 {
             return 1;
         }
         match memo[n] {
             0 => {
-                memo[n] = self.helper(memo, n - 1) + self.helper(memo, n - 2);
+                memo[n] = Fibonacci::helper(memo, n - 1) + Fibonacci::helper(memo, n - 2);
                 memo[n]
             }
             _ => memo[n],
@@ -72,10 +72,10 @@ impl Fibonacci {
 
 #[test]
 fn fib_test() {
-    let x = Fibonacci.fib_with_helper(6);
-    let y = Fibonacci::fib(6);
-    assert_eq!(x, 8);
-    assert_eq!(y, x as i32);
+    let x = Fibonacci::fib_with_helper(8);
+    let y = Fibonacci::fib(8);
+    assert_eq!(x, 21);
+    assert_eq!(y, x);
     let z = Fibonacci::fib(7);
     assert_eq!(z, 13);
     let a = Fibonacci.fib_with_dp(7);

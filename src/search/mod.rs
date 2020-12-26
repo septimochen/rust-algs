@@ -2,11 +2,11 @@ pub mod binary_search;
 pub mod binary_search_st;
 pub mod bst;
 pub mod frequency_counter;
+pub mod hash_tables;
 pub mod node;
 pub mod person;
 pub mod red_black_tree;
 pub mod sequential_search_st;
-pub mod hash_tables;
 
 pub trait ST<K, V> {
     fn new() -> Self;

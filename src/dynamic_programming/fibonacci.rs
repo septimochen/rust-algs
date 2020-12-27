@@ -25,14 +25,15 @@ impl Fibonacci {
     fn helper(memo: &mut Vec<i32>, n: usize) -> i32 {
         //base case
         if n <= 2 {
-            return 1;
-        }
-        match memo[n] {
-            0 => {
-                memo[n] = Fibonacci::helper(memo, n - 1) + Fibonacci::helper(memo, n - 2);
-                memo[n]
+            1
+        } else {
+            match memo[n] {
+                0 => {
+                    memo[n] = Fibonacci::helper(memo, n - 1) + Fibonacci::helper(memo, n - 2);
+                    memo[n]
+                }
+                _ => memo[n],
             }
-            _ => memo[n],
         }
     }
 

@@ -31,7 +31,7 @@ mod grid_test {
     use super::*;
 
     #[test]
-    pub fn grid_travel_test() {
+    pub fn unique_path_test() {
         let a = GridTraveler::travel(1, 1);
         assert_eq!(a, 1);
         let b = GridTraveler::travel(2, 3);

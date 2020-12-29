@@ -5,7 +5,7 @@ pub struct CoinChange;
 
 #[allow(dead_code)]
 impl CoinChange {
-    pub fn coin_change_final(&self, coins: Vec<i32>, amount: i32) -> i32 {
+    pub fn coin_change_final(coins: Vec<i32>, amount: i32) -> i32 {
         if amount < 0 {
             return -1;
         }
@@ -35,11 +35,11 @@ mod coin_tests {
 
     #[test]
     fn coin_works_3() {
-        let x = CoinChange.coin_change_final(vec![2], 3);
+        let x = CoinChange::coin_change_final(vec![2], 3);
         assert_eq!(x, -1);
-        let y = CoinChange.coin_change_final(vec![1, 2, 5], 18);
+        let y = CoinChange::coin_change_final(vec![1, 2, 5], 18);
         assert_eq!(y, 5);
-        let z = CoinChange.coin_change_final(vec![1, 2, 5], 100);
+        let z = CoinChange::coin_change_final(vec![1, 2, 5], 100);
         assert_eq!(z, 20);
     }
 }

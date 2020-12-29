@@ -44,7 +44,13 @@ mod how_sum_test {
 
     #[test]
     fn how_sum_test_1() {
-        let a = HowSum::how_sum(7, &vec![5, 3, 4]);
+        let a = HowSum::how_sum(7, &vec![5, 3, 4, 7]);
         println!("{:?}", a);
+        let b = HowSum::how_sum(7, &vec![2, 3]);
+        println!("{:?}", b);
+        let c = HowSum::how_sum(8, &vec![5, 2, 3]);
+        println!("{:?}", c);
+        let d = HowSum::how_sum(300, &vec![7, 14]);
+        assert_eq!(d, None);
     }
 }

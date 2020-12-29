@@ -10,6 +10,9 @@ impl CanSum {
     }
 
     pub fn helper(target_sum: i32, numbers: &Vec<i32>, memo: &mut HashMap<i32, bool>) -> bool {
+        if memo.contains_key(&target_sum) {
+            return memo[&target_sum];
+        }
         if target_sum == 0 {
             return true;
         }
@@ -17,9 +20,6 @@ impl CanSum {
             return false;
         }
         for &num in numbers {
-            if memo.contains_key(&target_sum) {
-                return memo[&target_sum];
-            }
             let remainder = target_sum - num;
             if CanSum::helper(remainder, numbers, memo) == true {
                 memo.insert(target_sum, true);

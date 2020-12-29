@@ -47,7 +47,7 @@ mod can_sum_test {
         assert_eq!(c, false);
         let d = CanSum::can_sum(8, &vec![2, 3, 5]);
         assert_eq!(d, true);
-        let e = CanSum::can_sum(300, &vec![7, 14]);
-        assert_eq!(e, false);
+        let e = CanSum::can_sum(14000, &vec![7, 14]);
+        assert_eq!(e, true);
     }
 }

@@ -37,7 +37,7 @@ impl Fibonacci {
         }
     }
 
-    pub fn fib_with_dp(n: i32) -> i32 {
+    pub fn fib_with_dp(n: i32) -> i64 {
         if n <= 0 {
             return 0;
         } else if n <= 2 {
@@ -51,6 +51,16 @@ impl Fibonacci {
             }
             return dp[n as usize];
         }
+    }
+
+    pub fn fib_with_dp_2(n: i32) -> i64 {
+        let mut dp = vec![0; (n + 3) as usize];
+        dp[1] = 1;
+        for i in 0..=n {
+            dp[i as usize + 1] += dp[i as usize];
+            dp[i as usize + 2] += dp[i as usize];
+        }
+        return dp[n as usize];
     }
 
     pub fn fib_final(n: i32) -> i32 {
@@ -79,8 +89,10 @@ fn fib_test() {
     assert_eq!(y, x);
     let z = Fibonacci::fib(7);
     assert_eq!(z, 13);
-    let a = Fibonacci::fib_with_dp(7);
-    assert_eq!(a, z);
+    let a = Fibonacci::fib_with_dp(50);
+    assert_eq!(a, 12586269025);
     let b = Fibonacci::fib_final(7);
     assert_eq!(b, z);
+    let c = Fibonacci::fib_with_dp_2(50);
+    assert_eq!(c, 12586269025);
 }

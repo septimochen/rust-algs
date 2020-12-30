@@ -6,11 +6,7 @@ pub fn count_construct(target: &str, word_bank: &Vec<&str>) -> i32 {
     helper(target, word_bank, &mut memo)
 }
 
-pub fn helper<'a>(
-    target: &'a str,
-    word_bank: &Vec<&str>,
-    memo: &mut HashMap<&'a str, i32>,
-) -> i32 {
+pub fn helper<'a>(target: &'a str, word_bank: &Vec<&str>, memo: &mut HashMap<&'a str, i32>) -> i32 {
     if memo.contains_key(target) {
         return memo[target];
     }
@@ -23,9 +19,8 @@ pub fn helper<'a>(
     for &word in word_bank {
         if target.starts_with(word) {
             let suffix = target.strip_prefix(word).unwrap_or("");
-            if helper(suffix, word_bank, memo) == 1 {
-                count += 1;
-            }
+            let rest_cnt = helper(suffix, word_bank, memo);
+            count += rest_cnt;
         }
     }
     memo.insert(target, count);
@@ -38,9 +33,12 @@ mod best_sum_test {
 
     #[test]
     fn construct_test() {
-        let a = count_construct("abcdef", &vec!["ab", "abc", "cd", "def", "abcd"]);
-        assert_eq!(a, 1);
-        let b = count_construct("abcdefg", &vec!["ab", "abc", "cd", "def", "abcd", "ef"]);
+        let a = count_construct("abcdef", &vec!["ab", "abc", "cd", "def", "abcd", "ef"]);
+        assert_eq!(a, 3);
+        let b = count_construct(
+            "abcdefg",
+            &vec!["ab", "abc", "cd", "def", "abcd", "ef", "g"],
+        );
         assert_eq!(b, 0);
         let c = count_construct(
             "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef",

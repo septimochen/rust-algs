@@ -3,7 +3,7 @@ pub struct Fibonacci;
 
 #[allow(dead_code)]
 impl Fibonacci {
-    pub fn fib(n: i32) -> i32 {
+    pub fn fib(n: i32) -> i64 {
         if n <= 0 {
             0
         } else if n <= 2 {
@@ -13,16 +13,16 @@ impl Fibonacci {
         }
     }
 
-    pub fn fib_with_helper(n: i32) -> i32 {
+    pub fn fib_with_helper(n: i32) -> i64 {
         if n <= 0 {
             0
         } else {
-            let mut memo = vec![0; (n + 1) as usize];
+            let mut memo:Vec<i64> = vec![0; (n + 1) as usize];
             Fibonacci::helper(&mut memo, n as usize)
         }
     }
 
-    fn helper(memo: &mut Vec<i32>, n: usize) -> i32 {
+    fn helper(memo: &mut Vec<i64>, n: usize) -> i64 {
         //base case
         if n <= 2 {
             1
@@ -63,7 +63,7 @@ impl Fibonacci {
         return dp[n as usize];
     }
 
-    pub fn fib_final(n: i32) -> i32 {
+    pub fn fib_final(n: i32) -> i64 {
         if n <= 0 {
             return 0;
         } else if n <= 2 {
@@ -91,8 +91,8 @@ fn fib_test() {
     assert_eq!(z, 13);
     let a = Fibonacci::fib_with_dp(50);
     assert_eq!(a, 12586269025);
-    let b = Fibonacci::fib_final(7);
-    assert_eq!(b, z);
+    let b = Fibonacci::fib_final(50);
+    assert_eq!(b, a);
     let c = Fibonacci::fib_with_dp_2(50);
     assert_eq!(c, 12586269025);
 }

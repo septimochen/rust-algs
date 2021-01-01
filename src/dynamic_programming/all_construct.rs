@@ -20,7 +20,6 @@ pub fn helper<'a>(
         return vec![vec![]];
     }
 
-    // else {return vec![];}
     let mut result: Vec<Vec<&str>> = vec![];
 
     for &word in word_bank {

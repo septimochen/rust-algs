@@ -39,7 +39,7 @@ mod best_sum_test {
             "abcdefg",
             &vec!["ab", "abc", "cd", "def", "abcd", "ef", "g"],
         );
-        assert_eq!(b, 0);
+        assert_eq!(b, 3);
         let c = count_construct(
             "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef",
             &vec![

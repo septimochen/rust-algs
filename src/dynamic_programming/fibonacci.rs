@@ -17,7 +17,7 @@ impl Fibonacci {
         if n <= 0 {
             0
         } else {
-            let mut memo:Vec<i64> = vec![0; (n + 1) as usize];
+            let mut memo: Vec<i64> = vec![0; (n + 1) as usize];
             Fibonacci::helper(&mut memo, n as usize)
         }
     }

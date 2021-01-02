@@ -9,6 +9,10 @@ impl GridTraveler {
         GridTraveler::helper(m, n, &mut memo)
     }
 
+    pub fn travel_with_dp() {
+        
+    }
+
     pub fn helper(m: usize, n: usize, memo: &mut HashMap<String, usize>) -> usize {
         let key = &[m.to_string(), n.to_string()].join(",");
         if memo.contains_key(&key.clone()) {

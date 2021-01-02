@@ -49,6 +49,7 @@ mod best_sum_test {
                 "eeee",
                 "eeeee",
                 "eeeeee",
+                "eeeeeee",
                 "eeeeeeeee",
                 "eeeeeeeeeeeee",
                 "eeeeeeeeeeeeee",

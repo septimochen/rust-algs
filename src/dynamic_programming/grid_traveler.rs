@@ -9,8 +9,21 @@ impl GridTraveler {
         GridTraveler::helper(m, n, &mut memo)
     }
 
-    pub fn travel_with_dp() {
-        
+    pub fn travel_with_dp(m: usize, n: usize) -> usize {
+        let mut table = vec![vec![0; n + 1]; m + 1];
+        table[1][1] = 1;
+        for i in 0..=m {
+            for j in 0..=n {
+                let current = table[i][j];
+                if i + 1 <= m {
+                    table[i + 1][j] += current;
+                }
+                if j + 1 <= n {
+                    table[i][j + 1] += current;
+                }
+            }
+        }
+        table[m][n]
     }
 
     pub fn helper(m: usize, n: usize, memo: &mut HashMap<String, usize>) -> usize {
@@ -45,6 +58,20 @@ mod grid_test {
         let d = GridTraveler::travel(3, 3);
         assert_eq!(d, 6);
         let e = GridTraveler::travel(18, 18);
+        assert_eq!(e, 2333606220);
+    }
+
+    #[test]
+    pub fn unique_path_test_with_table() {
+        let a = GridTraveler::travel_with_dp(1, 1);
+        assert_eq!(a, 1);
+        let b = GridTraveler::travel_with_dp(2, 3);
+        assert_eq!(b, 3);
+        let c = GridTraveler::travel_with_dp(3, 2);
+        assert_eq!(c, 3);
+        let d = GridTraveler::travel_with_dp(3, 3);
+        assert_eq!(d, 6);
+        let e = GridTraveler::travel_with_dp(18, 18);
         assert_eq!(e, 2333606220);
     }
 }

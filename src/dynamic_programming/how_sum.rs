@@ -45,6 +45,9 @@ impl HowSum {
                 for num in numbers {
                     let next = (i as i32 + num) as usize;
                     if next <= key {
+                        if table[next].is_some() {
+                            continue;
+                        }
                         let mut val = table[i].clone().unwrap();
                         val.push(*num);
                         table[next] = Some(val);

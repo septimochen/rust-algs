@@ -45,16 +45,9 @@ impl HowSum {
                 for num in numbers {
                     let next = (i as i32 + num) as usize;
                     if next <= key {
-                        match table[next].clone() {
-                            None => {
-                                table[next] = Some(vec![]);
-                                table[next].as_mut().unwrap().push(*num);
-                            }
-                            Some(mut val) => {
-                                val.push(*num);
-                                table[next] = Some(val);
-                            }
-                        }
+                        let mut val = table[i].clone().unwrap();
+                        val.push(*num);
+                        table[next] = Some(val);
                     }
                 }
             }

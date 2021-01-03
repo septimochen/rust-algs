@@ -36,6 +36,7 @@ impl HowSum {
         memo.insert(target_sum, None);
         return None;
     }
+    pub fn how_sum_2() {}
 }
 
 #[cfg(test)]

@@ -52,14 +52,13 @@ impl BestSum {
                 for num in numbers {
                     let next = (i as i32 + num) as usize;
                     if next <= key {
-                        let mut val = table[i].clone().unwrap();
-                        if table[next].is_some()
-                            && val.len() + 1 >= table[next].clone().unwrap().len()
+                        let mut combination = table[i].clone().unwrap();
+                        combination.push(*num);
+                        if table[next].is_none()
+                            || combination.len() < table[next].clone().unwrap().len()
                         {
-                            continue;
+                            table[next] = Some(combination);
                         }
-                        val.push(*num);
-                        table[next] = Some(val);
                     }
                 }
             }
@@ -91,7 +90,7 @@ mod best_sum_test {
         println!("{:?}", b);
         let c = BestSum::best_sum_2(8, &vec![4, 5, 2, 3]);
         println!("{:?}", c);
-        let d = BestSum::best_sum_2(300, &vec![7, 14]);
-        assert_eq!(d, None);
+        let d = BestSum::best_sum_2(100, &vec![25, 1, 2, 3, 5]);
+        assert_eq!(d, Some(vec![25, 25, 25, 25]));
     }
 }

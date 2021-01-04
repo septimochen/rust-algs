@@ -8,8 +8,19 @@ pub fn can_construct(target: &str, word_bank: &Vec<&str>) -> bool {
 
 #[allow(dead_code)]
 pub fn can_construct_2(target: &str, word_bank: &Vec<&str>) -> bool {
-    let mut memo: HashMap<&str, bool> = HashMap::new();
-    helper(target, word_bank, &mut memo)
+    let n = target.len() + 1;
+    let mut table = vec![false; n + 1];
+    table[0] = true;
+    for i in 0..=n {
+        if table[i] == true {
+            for &word in word_bank {
+                if target[i..].starts_with(word) {
+                    table[i + word.len()] = true;
+                }
+            }
+        }
+    }
+    table[target.len()]
 }
 
 pub fn helper<'a>(

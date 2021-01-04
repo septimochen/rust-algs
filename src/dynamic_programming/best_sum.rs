@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+
 #[allow(dead_code)]
 pub struct BestSum;
 
@@ -43,8 +44,27 @@ impl BestSum {
     }
 
     pub fn best_sum_2(target_sum: i32, numbers: &Vec<i32>) -> Option<Vec<i32>> {
-        let mut memo: HashMap<i32, Option<Vec<i32>>> = HashMap::new();
-        BestSum::helper(target_sum, numbers, &mut memo)
+        let key = target_sum as usize;
+        let mut table: Vec<Option<Vec<i32>>> = vec![None; (target_sum + 1) as usize];
+        table[0] = Some(vec![]);
+        for i in 0..=key {
+            if table[i].is_some() {
+                for num in numbers {
+                    let next = (i as i32 + num) as usize;
+                    if next <= key {
+                        let mut val = table[i].clone().unwrap();
+                        if table[next].is_some()
+                            && val.len() + 1 >= table[next].clone().unwrap().len()
+                        {
+                            continue;
+                        }
+                        val.push(*num);
+                        table[next] = Some(val);
+                    }
+                }
+            }
+        }
+        table[key].clone()
     }
 }
 

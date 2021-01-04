@@ -6,6 +6,12 @@ pub fn can_construct(target: &str, word_bank: &Vec<&str>) -> bool {
     helper(target, word_bank, &mut memo)
 }
 
+#[allow(dead_code)]
+pub fn can_construct_2(target: &str, word_bank: &Vec<&str>) -> bool {
+    let mut memo: HashMap<&str, bool> = HashMap::new();
+    helper(target, word_bank, &mut memo)
+}
+
 pub fn helper<'a>(
     target: &'a str,
     word_bank: &Vec<&str>,
@@ -42,6 +48,30 @@ mod best_sum_test {
         let b = can_construct("abcdefg", &vec!["ab", "abc", "cd", "def", "abcd", "ef"]);
         assert_eq!(b, false);
         let c = can_construct(
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef",
+            &vec![
+                "e",
+                "eee",
+                "eeee",
+                "eeeee",
+                "eeeeee",
+                "eeeeeee",
+                "eeeeeeeee",
+                "eeeeeeeeeeeee",
+                "eeeeeeeeeeeeee",
+                "eeeeeeeeeeeeeee",
+                "eeeeeeeeeeeeeeee",
+            ],
+        );
+        assert_eq!(c, false);
+    }
+    #[test]
+    fn construct_test_2() {
+        let a = can_construct_2("abcdef", &vec!["ab", "abc", "cd", "def", "abcd"]);
+        assert_eq!(a, true);
+        let b = can_construct_2("abcdefg", &vec!["ab", "abc", "cd", "def", "abcd", "ef"]);
+        assert_eq!(b, false);
+        let c = can_construct_2(
             "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef",
             &vec![
                 "e",

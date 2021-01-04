@@ -63,4 +63,15 @@ mod best_sum_test {
         let d = BestSum::best_sum(300, &vec![7, 14]);
         assert_eq!(d, None);
     }
+    #[test]
+    fn best_sum_2_test() {
+        let a = BestSum::best_sum_2(7, &vec![5, 2, 4, 7]);
+        println!("{:?}", a);
+        let b = BestSum::best_sum_2(7, &vec![1, 2, 3, 4]);
+        println!("{:?}", b);
+        let c = BestSum::best_sum_2(8, &vec![4, 5, 2, 3]);
+        println!("{:?}", c);
+        let d = BestSum::best_sum_2(300, &vec![7, 14]);
+        assert_eq!(d, None);
+    }
 }

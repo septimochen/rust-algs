@@ -41,6 +41,11 @@ impl BestSum {
         memo.insert(target_sum, shortest.clone());
         return shortest;
     }
+
+    pub fn best_sum_2(target_sum: i32, numbers: &Vec<i32>) -> Option<Vec<i32>> {
+        let mut memo: HashMap<i32, Option<Vec<i32>>> = HashMap::new();
+        BestSum::helper(target_sum, numbers, &mut memo)
+    }
 }
 
 #[cfg(test)]

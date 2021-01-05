@@ -8,8 +8,24 @@ pub fn all_construct<'a>(target: &'a str, word_bank: &Vec<&'a str>) -> Vec<Vec<&
 
 #[allow(dead_code)]
 pub fn all_construct_2<'a>(target: &'a str, word_bank: &Vec<&'a str>) -> Vec<Vec<&'a str>> {
-    let mut memo: HashMap<&str, Vec<Vec<&str>>> = HashMap::new();
-    return helper(target, word_bank, &mut memo);
+    let n = target.len() + 1;
+    let mut table: Vec<Vec<Vec<&str>>> = vec![vec![]; n + 1];
+    table[0].push(vec![]);
+    for i in 0..=n {
+        if table[i].len() != 0 {
+            for &word in word_bank {
+                if target[i..].starts_with(word) {
+                    let mut new_vec = vec![];
+                    for mut item in table[i].clone() {
+                        item.push(word);
+                        new_vec.push(item);
+                    }
+                    table[i + word.len()].extend(new_vec.into_iter());
+                }
+            }
+        }
+    }
+    table[n - 1].clone()
 }
 
 pub fn helper<'a>(
@@ -71,5 +87,4 @@ mod best_sum_test {
             ]
         );
     }
-
 }

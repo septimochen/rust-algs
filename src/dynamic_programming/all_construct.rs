@@ -7,6 +7,11 @@ pub fn all_construct<'a>(target: &'a str, word_bank: &Vec<&'a str>) -> Vec<Vec<&
 }
 
 #[allow(dead_code)]
+pub fn all_construct_2<'a>(target: &'a str, word_bank: &Vec<&'a str>) -> Vec<Vec<&'a str>> {
+    let mut memo: HashMap<&str, Vec<Vec<&str>>> = HashMap::new();
+    return helper(target, word_bank, &mut memo);
+}
+
 pub fn helper<'a>(
     target: &'a str,
     word_bank: &Vec<&'a str>,
@@ -43,7 +48,7 @@ mod best_sum_test {
     use super::*;
 
     #[test]
-    fn acllstruct_test() {
+    fn all_construct_test() {
         let a = all_construct("abcdef", &vec!["ab", "abc", "cd", "def", "abcd", "ef"]);
         assert_eq!(
             a,
@@ -54,4 +59,17 @@ mod best_sum_test {
             ]
         );
     }
+    #[test]
+    fn all_construct_2_test() {
+        let a = all_construct_2("abcdef", &vec!["ab", "abc", "cd", "def", "abcd", "ef"]);
+        assert_eq!(
+            a,
+            vec![
+                vec!["ab", "cd", "ef"],
+                vec!["abc", "def"],
+                vec!["abcd", "ef"]
+            ]
+        );
+    }
+
 }

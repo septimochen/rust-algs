@@ -61,6 +61,8 @@ pub fn helper<'a>(
 
 #[cfg(test)]
 mod best_sum_test {
+    use std::collections::HashSet;
+
     use super::*;
 
     #[test]
@@ -78,13 +80,13 @@ mod best_sum_test {
     #[test]
     fn all_construct_2_test() {
         let a = all_construct_2("abcdef", &vec!["ab", "abc", "cd", "def", "abcd", "ef"]);
-        assert_eq!(
-            a,
-            vec![
-                vec!["ab", "cd", "ef"],
-                vec!["abc", "def"],
-                vec!["abcd", "ef"]
-            ]
-        );
+        let b = vec![
+            vec!["ab", "cd", "ef"],
+            vec!["abc", "def"],
+            vec!["abcd", "ef"],
+        ];
+        let hash_a: HashSet<Vec<&str>> = a.into_iter().collect();
+        let hash_b: HashSet<Vec<&str>> = b.into_iter().collect();
+        assert_eq!(hash_a, hash_b);
     }
 }

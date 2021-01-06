@@ -78,7 +78,7 @@ mod best_sum_test {
         );
     }
     #[test]
-    fn all_construct_2_test() {
+    fn all_construct_test_2() {
         let a = all_construct_2("abcdef", &vec!["ab", "abc", "cd", "def", "abcd", "ef"]);
         let b = vec![
             vec!["ab", "cd", "ef"],

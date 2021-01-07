@@ -3,7 +3,7 @@ use std::collections::HashMap;
 #[allow(dead_code)]
 pub fn all_construct<'a>(target: &'a str, word_bank: &Vec<&'a str>) -> Vec<Vec<&'a str>> {
     let mut memo: HashMap<&str, Vec<Vec<&str>>> = HashMap::new();
-    return helper(target, word_bank, &mut memo);
+    helper(target, word_bank, &mut memo)
 }
 
 #[allow(dead_code)]
@@ -56,7 +56,7 @@ pub fn helper<'a>(
         }
     }
     memo.insert(target, result.clone());
-    return result;
+    result
 }
 
 #[cfg(test)]

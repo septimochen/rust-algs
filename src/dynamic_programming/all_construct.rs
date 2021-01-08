@@ -60,7 +60,7 @@ pub fn helper<'a>(
 }
 
 #[cfg(test)]
-mod best_sum_test {
+mod all_construct_tests {
     use std::collections::HashSet;
 
     use super::*;

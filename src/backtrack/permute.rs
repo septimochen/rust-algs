@@ -2,10 +2,24 @@ use std::vec;
 
 #[allow(dead_code)]
 pub fn permute(nums: Vec<i32>) -> Vec<Vec<i32>> {
-    let res = vec![];
-    let track: Vec<i32> = vec![];
-    backtrack(nums, track, &res);
+    let mut res = vec![];
+    let mut track: Vec<i32> = vec![];
+    backtrack(&nums, &mut track, &mut res);
     res
 }
 
-fn backtrack(nums: Vec<i32>, track: Vec<i32>, res: &Vec<Vec<i32>>) {}
+fn backtrack(nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+    if track.len() == nums.len() {
+        res.push(track.clone());
+        return;
+    }
+
+    for i in 0..nums.len() {
+        if track.contains(&nums[i]) {
+            continue;
+        }
+        track.push(nums[i]);
+        backtrack(nums, track, res);
+        track.pop();
+    }
+}

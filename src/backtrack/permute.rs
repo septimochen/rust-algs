@@ -28,4 +28,6 @@ fn backtrack(nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
 fn permute_test() {
     let a = permute(vec![1, 2, 3]);
     println!("{:?}", a);
+    let b = permute(vec![3, 4, 5, 6]);
+    println!("{:?}", b);
 }

@@ -1,5 +1,3 @@
-use std::vec;
-
 #[allow(dead_code)]
 pub fn permute(nums: Vec<i32>) -> Vec<Vec<i32>> {
     let mut res = vec![];

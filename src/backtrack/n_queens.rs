@@ -39,10 +39,10 @@ fn is_valid(board: &Vec<Vec<char>>, row: usize, col: usize) -> bool {
 
     // check right above
     {
-        let mut i = row - 1;
+        let mut i = row as i32 - 1;
         let mut j = col + 1;
-        while i > 0 && j < n {
-            if board[i][j] == 'Q' {
+        while i >= 0 && j < n {
+            if board[i as usize][j] == 'Q' {
                 return false;
             }
             i -= 1;
@@ -51,15 +51,21 @@ fn is_valid(board: &Vec<Vec<char>>, row: usize, col: usize) -> bool {
     }
     // check left above
     {
-        let mut i = row - 1;
-        let mut j = col - 1;
-        while i > 0 && j < n {
-            if board[i][j] == 'Q' {
+        let mut i = row as i32 - 1;
+        let mut j = col as i32 - 1;
+        while i >= 0 && j >= 0 as i32 {
+            if board[i as usize][j as usize] == 'Q' {
                 return false;
             }
             i -= 1;
             j -= 1;
         }
     }
-    return true
+    return true;
+}
+
+#[test]
+fn nqueens_test() {
+    let a = solve_n_queens(4);
+    println!("{:?}", a);
 }

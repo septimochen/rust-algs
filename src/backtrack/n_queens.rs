@@ -53,7 +53,7 @@ fn is_valid(board: &Vec<Vec<char>>, row: usize, col: usize) -> bool {
     {
         let mut i = row as i32 - 1;
         let mut j = col as i32 - 1;
-        while i >= 0 && j >= 0 as i32 {
+        while i >= 0 && j >= 0 {
             if board[i as usize][j as usize] == 'Q' {
                 return false;
             }

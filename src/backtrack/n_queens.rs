@@ -1,5 +1,5 @@
 #[allow(dead_code)]
-pub fn solve_n_queens(n: i32) -> Vec<Vec<String>>  {
+pub fn solve_n_queens(n: i32) -> Vec<Vec<String>> {
     let mut res = vec![];
     let mut board = vec![vec!['.'; n as usize]; n as usize];
     backtrack(&mut board, 0, &mut res);
@@ -26,10 +26,40 @@ fn backtrack(board: &mut Vec<Vec<char>>, row: usize, res: &mut Vec<Vec<String>>)
         board[row][col] = 'Q';
         backtrack(board, row + 1, res);
         board[row][col] = '.';
-
     }
 }
 
 fn is_valid(board: &Vec<Vec<char>>, row: usize, col: usize) -> bool {
-    true
+    let n = board.len();
+    for i in 0..row {
+        if board[i][col] == 'Q' {
+            return false;
+        }
+    }
+
+    // check right above
+    {
+        let mut i = row - 1;
+        let mut j = col + 1;
+        while i > 0 && j < n {
+            if board[i][j] == 'Q' {
+                return false;
+            }
+            i -= 1;
+            j += 1;
+        }
+    }
+    // check left above
+    {
+        let mut i = row - 1;
+        let mut j = col - 1;
+        while i > 0 && j < n {
+            if board[i][j] == 'Q' {
+                return false;
+            }
+            i -= 1;
+            j -= 1;
+        }
+    }
+    return true
 }

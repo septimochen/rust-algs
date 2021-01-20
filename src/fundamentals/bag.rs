@@ -1,4 +1,4 @@
-use std::fmt;
+use std::{fmt, num::NonZeroUsize, str::ParseBoolError, usize};
 
 #[allow(dead_code)]
 pub struct Node<T> {
@@ -22,5 +22,13 @@ impl<T> Bag<T> {
         let next = self.s.take();
         self.s = Some(Box::new(Node { val, next }));
         self.n += 1;
+    }
+
+    pub fn len(&self) -> usize {
+        self.n
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
     }
 }

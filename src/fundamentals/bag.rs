@@ -10,3 +10,11 @@ pub struct Bag<T> {
     n: usize,
 }
 
+impl<T> Bag<T> {
+    pub fn new() -> Bag<T> {
+        Bag {
+            s: None,
+            n: 0
+        }
+    }
+}

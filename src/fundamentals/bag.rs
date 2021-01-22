@@ -6,6 +6,15 @@ pub struct Node<T> {
     next: Option<Box<Node<T>>>,
 }
 
+impl<T: Clone> Clone for Node<T> {
+    fn clone(&self) -> Self {
+        Node {
+            val: self.val.clone(),
+            next: self.next.clone(),
+        }
+    }
+}
+
 #[allow(dead_code)]
 pub struct Bag<T> {
     s: Option<Box<Node<T>>>,

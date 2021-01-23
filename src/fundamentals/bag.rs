@@ -55,6 +55,29 @@ impl<T> Bag<T> {
     }
 }
 
+pub struct Iter<'a, T>
+where
+    T: 'a,
+{
+    node: Option<&'a Box<Node<T>>>,
+    nitem: usize,
+}
+
+impl<'a, T> Iterator for Iter<'a, T> {
+    type Item = &'a T;
+
+    fn next(&mut self) -> Option<&'a T> {
+        if self.nitem == 0 {
+            None
+        } else {
+            let ret = self.node.map(|n| &n.val);
+            self.node = self.node.map_or(None, |n| n.next.as_ref());
+            self.nitem -= 1;
+            ret
+        }
+    }
+}
+
 impl<T: Clone> Clone for Bag<T> {
     fn clone(&self) -> Self {
         Bag {

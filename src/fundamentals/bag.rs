@@ -54,3 +54,12 @@ impl<T> Bag<T> {
         self.len() == 0
     }
 }
+
+impl<T: Clone> Clone for Bag<T> {
+    fn clone(&self) -> Self {
+        Bag {
+            s: self.s.clone(),
+            n: self.n
+        }
+    }
+}

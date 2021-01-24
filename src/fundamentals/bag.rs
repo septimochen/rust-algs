@@ -87,6 +87,15 @@ impl<T: Clone> Clone for Bag<T> {
     }
 }
 
+impl<T> Bag<T> {
+    pub fn iter<'a>(&'a self) -> Iter<'a, T> {
+        Iter {
+            node: self.s.as_ref(),
+            nitem: self.n,
+        }
+    }
+}
+
 impl<T: fmt::Debug> fmt::Debug for Bag<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "[")?;
@@ -108,5 +117,20 @@ mod bag_tests {
         s.add(2000);
         assert_eq!(s.len(), 2);
         println!("{:?}", s);
+    }
+
+    #[test]
+    fn test_bag_iter() {
+        let mut s = Bag::new();
+        s.add(100);
+        s.add(200);
+        s.add(300);
+
+        let mut result = vec![300, 200, 100].into_iter();
+        for i in s.iter() {
+            assert_eq!(*i, result.next().unwrap());
+        }
+
+        assert_eq!(s.len(), 3);
     }
 }

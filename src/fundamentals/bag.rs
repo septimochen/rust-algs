@@ -133,4 +133,16 @@ mod bag_tests {
 
         assert_eq!(s.len(), 3);
     }
+
+    #[test]
+    fn test_bag_clone() {
+        let mut s = Bag::new();
+        s.add(100);
+        s.add(200);
+        s.add(300);
+
+        let t = s.clone();
+
+        assert_eq!(t.len(), 3);
+    }
 }

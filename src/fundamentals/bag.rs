@@ -21,7 +21,7 @@ fn write_node_to_formatter<T: fmt::Debug>(
     x: Option<&Box<Node<T>>>,
 ) -> fmt::Result {
     if let Some(node) = x {
-        write!(f, "{:?}", node.val)?;
+        write!(f, "{:?}, ", node.val)?;
         write_node_to_formatter(f, node.next.as_ref())
     } else {
         Ok(())
@@ -84,5 +84,29 @@ impl<T: Clone> Clone for Bag<T> {
             s: self.s.clone(),
             n: self.n,
         }
+    }
+}
+
+impl<T: fmt::Debug> fmt::Debug for Bag<T> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "[")?;
+        write_node_to_formatter(f, self.s.as_ref())?;
+        write!(f, "]")
+    }
+}
+
+#[cfg(test)]
+mod bag_tests {
+    use super::*;
+
+    #[test]
+    fn bag_test() {
+        let mut s = Bag::new();
+        assert_eq!(s.len(), 0);
+        s.add(1000);
+        assert_eq!(s.len(), 1);
+        s.add(2000);
+        assert_eq!(s.len(), 2);
+        println!("{:?}", s);
     }
 }

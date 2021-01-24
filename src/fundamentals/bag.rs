@@ -87,6 +87,7 @@ impl<T: Clone> Clone for Bag<T> {
     }
 }
 
+#[allow(dead_code)]
 impl<T> Bag<T> {
     pub fn iter<'a>(&'a self) -> Iter<'a, T> {
         Iter {

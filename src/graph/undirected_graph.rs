@@ -8,10 +8,11 @@ pub struct Graph {
     adj: Vec<Bag<usize>>,
 }
 
+#[allow(dead_code)]
 impl Graph {
     pub fn new(v: usize) -> Graph {
         Graph {
-            v: v,
+            v,
             e: 0,
             adj: iter::repeat(Bag::<usize>::new()).take(v).collect(),
         }

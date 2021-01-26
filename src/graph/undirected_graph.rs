@@ -25,4 +25,10 @@ impl Graph {
     pub fn e(&self) -> usize {
         self.e
     }
+
+    pub fn add_edge(&mut self, v: usize, w: usize) {
+        self.e += 1;
+        self.adj[v].add(w);
+        self.adj[w].add(v);
+    }
 }

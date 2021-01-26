@@ -21,4 +21,8 @@ impl Graph {
     pub fn v(&self) -> usize {
         self.v
     }
+
+    pub fn e(&self) -> usize {
+        self.e
+    }
 }

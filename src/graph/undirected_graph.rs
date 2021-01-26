@@ -17,4 +17,8 @@ impl Graph {
             adj: iter::repeat(Bag::<usize>::new()).take(v).collect(),
         }
     }
+
+    pub fn v(&self) -> usize {
+        self.v
+    }
 }

@@ -31,4 +31,8 @@ impl Graph {
         self.adj[v].add(w);
         self.adj[w].add(v);
     }
+
+    pub fn degree(&self, v: usize) -> usize {
+        self.adj[v].len()
+    }
 }

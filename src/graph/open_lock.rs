@@ -63,3 +63,22 @@ impl Solution {
         return -1;
     }
 }
+
+#[test]
+fn open_lock_test() {
+    let a = Solution::open_lock(vec!["8888".to_owned()], "0009".to_owned());
+    assert_eq!(a, 1);
+    let b = Solution::open_lock(vec!["0000".to_owned()], "8888".to_owned());
+    assert_eq!(b, -1);
+    let c = Solution::open_lock(
+        vec![
+            "0201".to_owned(),
+            "0101".to_owned(),
+            "0102".to_owned(),
+            "1212".to_owned(),
+            "2002".to_owned(),
+        ],
+        "0202".to_owned(),
+    );
+    assert_eq!(c, 6);
+}

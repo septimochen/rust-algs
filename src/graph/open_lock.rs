@@ -1,4 +1,4 @@
-use std::{collections::HashSet, usize};
+use std::collections::HashSet;
 
 pub struct Solution;
 

@@ -35,4 +35,9 @@ impl Graph {
     pub fn degree(&self, v: usize) -> usize {
         self.adj[v].len()
     }
+
+    pub fn max_degree(&self) -> usize {
+        (0..self.v()).map(|x| self.degree(x)).max().unwrap_or(0)
+
+    }
 }

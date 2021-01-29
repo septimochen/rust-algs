@@ -38,6 +38,13 @@ impl Graph {
 
     pub fn max_degree(&self) -> usize {
         (0..self.v()).map(|x| self.degree(x)).max().unwrap_or(0)
+    }
 
+    pub fn adj(&self, v: usize) -> std::vec::IntoIter<usize> {
+        self.adj[v]
+            .iter()
+            .map(|v| v.clone())
+            .collect::<Vec<usize>>()
+            .into_iter()
     }
 }

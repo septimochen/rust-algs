@@ -48,3 +48,6 @@ impl Graph {
             .into_iter()
     }
 }
+
+#[test]
+fn graph_test() {}

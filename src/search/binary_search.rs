@@ -16,11 +16,10 @@ pub fn binary_search<T: PartialOrd + PartialEq>(item: &T, arr: &[T]) -> i32 {
     return -1;
 }
 
-
 #[allow(dead_code)]
 pub fn left_bound<T: PartialOrd + PartialEq>(item: &T, arr: &[T]) -> i32 {
     if arr.len() == 0 {
-        return -1
+        return -1;
     }
     let mut left = 0;
     let mut right = arr.len();

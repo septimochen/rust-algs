@@ -40,6 +40,18 @@ impl Graph {
         (0..self.v()).map(|x| self.degree(x)).max().unwrap_or(0)
     }
 
+    pub fn avg_degree(&self) -> f64 {
+        let mut count = 0;
+        for v in 0..self.v() {
+            for w in self.adj(v) {
+                if v == w {
+                    count += 1
+                }
+            }
+        }
+        return count as f64 / 2.0;
+    }
+
     pub fn adj(&self, v: usize) -> std::vec::IntoIter<usize> {
         self.adj[v]
             .iter()

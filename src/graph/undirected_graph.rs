@@ -40,7 +40,7 @@ impl Graph {
         (0..self.v()).map(|x| self.degree(x)).max().unwrap_or(0)
     }
 
-    pub fn avg_degree(&self) -> f64 {
+    pub fn number_of_self_loops(&self) -> i32 {
         let mut count = 0;
         for v in 0..self.v() {
             for w in self.adj(v) {
@@ -49,7 +49,7 @@ impl Graph {
                 }
             }
         }
-        return count as f64 / 2.0;
+        count / 2
     }
 
     pub fn adj(&self, v: usize) -> std::vec::IntoIter<usize> {

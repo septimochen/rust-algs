@@ -41,22 +41,19 @@ pub fn left_bound<T: PartialOrd + PartialEq>(item: &T, arr: &[T]) -> i32 {
 
 #[allow(dead_code)]
 pub fn right_bound<T: PartialOrd + PartialEq>(item: &T, arr: &[T]) -> i32 {
-    if arr.len() == 0 {
-        return -1;
-    }
     let mut left = 0;
-    let mut right = arr.len() - 1;
+    let mut right: i32 = arr.len() as i32 - 1;
     while left <= right {
-        let mid = (left + right) / 2;
-        if &arr[mid] == item {
+        let mid = left + (right - left) / 2;
+        if &arr[mid as usize] == item {
             left = mid + 1;
-        } else if &arr[mid] > item {
+        } else if &arr[mid as usize] < item {
             left = mid + 1;
         } else {
             right = mid - 1;
         }
     }
-    if &arr[right] != item {
+    if right < 0 || &arr[right as usize] != item {
         return -1;
     }
     right as i32
@@ -80,4 +77,12 @@ pub fn left_bound_test() {
     assert_eq!(i, -1);
     let i2 = left_bound(&2, &vec![0, 2, 2, 3, 3, 3, 3, 4, 5, 6]);
     assert_eq!(i2, 1);
+}
+
+#[test]
+pub fn right_bound_test() {
+    let i = right_bound(&100, &vec![1, 2, 2, 3, 3, 3, 3, 4, 5, 6]);
+    assert_eq!(i, -1);
+    let i2 = right_bound(&2, &vec![0, 2, 2, 3, 3, 3, 3, 4, 5, 6]);
+    assert_eq!(i2, 2);
 }

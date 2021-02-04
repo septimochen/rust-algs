@@ -39,6 +39,29 @@ pub fn left_bound<T: PartialOrd + PartialEq>(item: &T, arr: &[T]) -> i32 {
     left as i32
 }
 
+#[allow(dead_code)]
+pub fn right_bound<T: PartialOrd + PartialEq>(item: &T, arr: &[T]) -> i32 {
+    if arr.len() == 0 {
+        return -1;
+    }
+    let mut left = 0;
+    let mut right = arr.len() - 1;
+    while left <= right {
+        let mid = (left + right) / 2;
+        if &arr[mid] == item {
+            left = mid + 1;
+        } else if &arr[mid] > item {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    if &arr[right] != item {
+        return -1;
+    }
+    right as i32
+}
+
 #[test]
 pub fn binary_search_run() {
     let index = binary_search(&"C++", &vec!["C", "C++", "Java", "PHP", "Python", "Rust"]);

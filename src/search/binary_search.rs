@@ -73,16 +73,16 @@ pub fn binary_search_run() {
 
 #[test]
 pub fn left_bound_test() {
-    let i = left_bound(&100, &vec![1, 2, 2, 3, 3, 3, 3, 4, 5, 6]);
-    assert_eq!(i, -1);
-    let i2 = left_bound(&2, &vec![0, 2, 2, 3, 3, 3, 3, 4, 5, 6]);
-    assert_eq!(i2, 1);
+    let a = left_bound(&100, &vec![1, 2, 2, 3, 3, 3, 3, 4, 5, 6]);
+    assert_eq!(a, -1);
+    let b = left_bound(&2, &vec![0, 2, 2, 3, 3, 3, 3, 4, 5, 6]);
+    assert_eq!(b, 1);
 }
 
 #[test]
 pub fn right_bound_test() {
-    let i = right_bound(&100, &vec![1, 2, 2, 3, 3, 3, 3, 4, 5, 6]);
-    assert_eq!(i, -1);
-    let i2 = right_bound(&2, &vec![0, 2, 2, 3, 3, 3, 3, 4, 5, 6]);
-    assert_eq!(i2, 2);
+    let a = right_bound(&100, &vec![1, 2, 2, 3, 3, 3, 3, 4, 5, 6]);
+    assert_eq!(a, -1);
+    let b = right_bound(&2, &vec![0, 2, 2, 3, 3, 3, 3, 4, 5, 6]);
+    assert_eq!(b, 2);
 }

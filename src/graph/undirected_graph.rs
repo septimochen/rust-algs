@@ -66,4 +66,7 @@ impl Graph {
 }
 
 #[test]
-fn graph_test() {}
+fn graph_test() {
+    let g = Graph::new(3);
+    println!("{:?}", g);
+}

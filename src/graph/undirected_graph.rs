@@ -67,6 +67,8 @@ impl Graph {
 
 #[test]
 fn graph_test() {
-    let g = Graph::new(3);
+    let mut g = Graph::new(3);
+    println!("{:?}", g);
+    g.add_edge(1, 2);
     println!("{:?}", g);
 }

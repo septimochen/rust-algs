@@ -69,13 +69,17 @@ impl Graph {
 pub struct DepthFirstSearch<'a> {
     graph: &'a Graph,
     marked: Vec<bool>,
-    count: i32,
+    count: usize,
 }
 
 #[allow(dead_code)]
 impl<'a> DepthFirstSearch<'a> {
     pub fn marked(&self, w: usize) -> bool {
         return self.marked[w];
+    }
+
+    pub fn count(&self) -> usize {
+        self.count
     }
 
     fn dfs(&mut self, v: usize) {

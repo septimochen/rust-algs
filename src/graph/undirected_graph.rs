@@ -65,6 +65,19 @@ impl Graph {
     }
 }
 
+#[allow(dead_code)]
+pub struct DepthFirstSearch {
+    marked: Vec<bool>,
+    count: i32,
+}
+
+#[allow(dead_code)]
+impl DepthFirstSearch {
+    pub fn marked(&self, w: usize) -> bool {
+        return self.marked[w];
+    }
+}
+
 #[test]
 fn graph_test() {
     let mut g = Graph::new(3);

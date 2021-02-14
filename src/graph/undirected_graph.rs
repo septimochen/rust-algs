@@ -71,4 +71,5 @@ fn graph_test() {
     println!("{:?}", g);
     g.add_edge(1, 2);
     println!("{:?}", g);
+    assert_eq!(g.number_of_self_loops(), 0)
 }

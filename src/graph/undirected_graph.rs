@@ -74,6 +74,16 @@ pub struct DepthFirstSearch<'a> {
 
 #[allow(dead_code)]
 impl<'a> DepthFirstSearch<'a> {
+    pub fn new(g: &'a Graph) -> Self {
+        let v = g.v();
+        let mut d = DepthFirstSearch {
+            graph: g,
+            marked: vec![false; v],
+            count: 0,
+        };
+        d.dfs(v);
+        d
+    }
     pub fn marked(&self, w: usize) -> bool {
         return self.marked[w];
     }

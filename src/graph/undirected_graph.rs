@@ -106,8 +106,8 @@ impl<'a> DepthFirstSearch<'a> {
 #[test]
 fn graph_test() {
     let mut g = Graph::new(3);
-    println!("{:?}", g);
+    // println!("{:?}", g);
     g.add_edge(1, 2);
-    println!("{:?}", g);
+    // println!("{:?}", g);
     assert_eq!(g.number_of_self_loops(), 0)
 }

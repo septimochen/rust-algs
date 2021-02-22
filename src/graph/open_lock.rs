@@ -66,7 +66,7 @@ impl Solution {
 
 #[test]
 fn open_lock_test() {
-    let a = Solution::open_lock(vec!["8888".to_owned()], "0009".to_owned());
+    let a = Solution::open_lock(vec!["8888".into()], "0009".into());
     assert_eq!(a, 1);
     let b = Solution::open_lock(vec!["0000".to_owned()], "8888".to_owned());
     assert_eq!(b, -1);

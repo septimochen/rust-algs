@@ -68,17 +68,17 @@ impl Solution {
 fn open_lock_test() {
     let a = Solution::open_lock(vec!["8888".into()], "0009".into());
     assert_eq!(a, 1);
-    let b = Solution::open_lock(vec!["0000".to_owned()], "8888".to_owned());
+    let b = Solution::open_lock(vec!["0000".into()], "8888".into());
     assert_eq!(b, -1);
     let c = Solution::open_lock(
         vec![
-            "0201".to_owned(),
-            "0101".to_owned(),
-            "0102".to_owned(),
-            "1212".to_owned(),
-            "2002".to_owned(),
+            "0201".into(),
+            "0101".into(),
+            "0102".into(),
+            "1212".into(),
+            "2002".into(),
         ],
-        "0202".to_owned(),
+        "0202".into(),
     );
     assert_eq!(c, 6);
 }

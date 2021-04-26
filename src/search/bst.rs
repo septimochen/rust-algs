@@ -41,7 +41,7 @@ impl BST {
             inorder(x.unwrap().left.as_ref(), queue);
             queue.push(&x.unwrap().key);
             inorder(x.unwrap().right.as_ref(), queue);
-        };
+        }
         inorder(self.root.as_ref(), &mut queue);
         queue.into_iter()
     }

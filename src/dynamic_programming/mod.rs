@@ -7,3 +7,4 @@ pub mod count_construct;
 pub mod fibonacci;
 pub mod grid_traveler;
 pub mod how_sum;
+pub mod knapsack;
